@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <style>
+        body { font-family: "Segoe UI", Arial, sans-serif; font-size: 11pt; color: #333; margin: 0; padding: 20px 40px; }
+        .header { display: flex; justify-content: space-between; border-bottom: 2px solid #2980b9; padding-bottom: 5px; margin-bottom: 20px; font-weight: bold; color: #2c3e50; font-size: 12pt; text-transform: uppercase; }
+        .footer { position: fixed; bottom: 20px; width: 100%; text-align: center; font-size: 9pt; color: #7f8c8d; border-top: 1px solid #bdc3c7; padding-top: 5px; }
+        .block-title { background-color: #ecf0f1; border-left: 5px solid #2980b9; padding: 8px 12px; font-weight: bold; font-size: 11pt; color: #2c3e50; margin-top: 25px; margin-bottom: 15px; text-transform: uppercase; }
+        .speaker { font-weight: bold; color: #e74c3c; margin-top: 10px; margin-bottom: 5px; }
+        .dialogue { margin-left: 20px; margin-bottom: 15px; font-style: normal; line-height: 1.5; text-align: justify; }
+        .action { color: #7f8c8d; font-style: italic; margin-bottom: 10px; margin-left: 20px; }
+        
+        .query-box { border: 1px solid #bdc3c7; margin: 15px 20px; page-break-inside: avoid; }
+        .query-header { background-color: #34495e; color: white; padding: 6px 12px; font-weight: bold; font-size: 10pt; }
+        .query-purpose { background-color: #ecf0f1; padding: 6px 12px; font-size: 10pt; border-bottom: 1px solid #bdc3c7; }
+        .query-code { font-family: "Consolas", monospace; font-size: 9.5pt; padding: 10px 12px; background-color: #fcfcfc; margin: 0; white-space: pre-wrap; color: #2c3e50; }
+        .query-result { background-color: #e8f6f3; padding: 6px 12px; font-size: 10pt; font-weight: bold; border-top: 1px solid #bdc3c7; color: #16a085; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <span>F1DB – GUION DE PRESENTACIÓN Y COMPENDIO UNIFICADO</span>
+        <span>Motor: PostgreSQL</span>
+    </div>
+
+    <div class="block-title">BLOQUE 1: INTRODUCCIÓN Y EXPLORACIÓN INICIAL (E01 a E05) | T. Estimado: 1.5 min</div>
+    
+    <div class="action">[Acción: Mostrar la parte superior de la página, sin scrollear todavía]</div>
+
+    <div class="speaker">NAR:</div>
+    <div class="dialogue">Hola a todos, somos Nar y Juli. Lo que están viendo en pantalla es el reporte interactivo que construimos para nuestro proyecto de base de datos usando F1DB. Quisimos armarlo con un diseño web para que sea súper fácil de leer y navegar.</div>
+
+    <div class="speaker">JULI:</div>
+    <div class="dialogue">El título de nuestro trabajo ya adelanta el debate en el que nos metimos: <i>El peso de la máquina vs. el piloto</i>. Usando PostgreSQL sobre casi 190.000 registros, quisimos demostrar con datos estadísticos duros que en la Fórmula 1 moderna el auto importa muchísimo más que el talento humano.</div>
+
+    <div class="action">[Acción: Bajar lentamente por las consultas E01 a E05, deteniéndose unos segundos en cada tabla]</div>
+
+    <div class="speaker">NAR:</div>
+    <div class="dialogue">Para llegar a esa conclusión, empezamos con la Sección 1: El análisis exploratorio. Como ven acá, fuimos de lo general a lo particular. Primero comprobamos el volumen de datos (E01) y la integridad de las tablas (E03). Esto era vital para no arrastrar errores lógicos.</div>
+
+    <div class="query-box">
+        <div class="query-header">E01/E03 - Volumen e Integridad Referencial</div>
+        <div class="query-purpose"><strong>QUÉ BUSCAMOS:</strong> Verificar el tamaño real de la base de datos y comprobar que no haya registros huérfanos entre resultados, carreras y pilotos.</div>
+        <pre class="query-code">
+-- E01: Volumen de datos
+SELECT t.table_name, c.reltuples::bigint AS filas_estimadas
+FROM information_schema.tables t
+JOIN pg_class c ON c.relname = t.table_name
+WHERE t.table_schema = 'public' AND t.table_type = 'BASE TABLE'
+ORDER BY filas_estimadas DESC;
+
+-- E03: Integridad referencial
+SELECT
+    COUNT(rr.race_id) AS resultados_totales,
+    COUNT(r.id) AS con_carrera_valida,
+    COUNT(rr.race_id) - COUNT(r.id) AS huerfanos_sin_carrera
+FROM race_result rr
+LEFT JOIN race r ON r.id = rr.race_id;</pre>
+        <div class="query-result">RESULTADO CLAVE: Casi 190.000 registros en race_data. Cero huérfanos detectados, lo que valida el uso seguro de INNER JOINs.</div>
+    </div>
+
+    <div class="speaker">JULI:</div>
+    <div class="dialogue">También descubrimos cosas metodológicas importantes. Por ejemplo (señalando E05), el campeonato de 1950 tenía apenas 6 o 7 carreras por año, y hoy tenemos 24. Por eso decidimos que todo nuestro análisis posterior se iba a basar en porcentajes y tasas, para que las épocas sean realmente comparables.</div>
+
+
+    <div class="block-title">BLOQUE 2: EL PATRÓN ANÓMALO Y LA HIPÓTESIS (E06) | T. Estimado: 1.5 min</div>
+    
+    <div class="action">[Acción: Detenerse en la viñeta E06, donde se ve la tabla de las décadas y los porcentajes]</div>
+
+    <div class="speaker">NAR:</div>
+    <div class="dialogue">Y bajando un poco más, llegamos a la joya de la exploración: la consulta E06. Este fue el momento 'eureka' del proyecto. Fíjense en esta tabla: en los años 60, el equipo más ganador a duras penas se llevaba el 24% de las victorias. Estaba súper peleado. Pero miren abajo, en los 2010s y 2020s... equipos como Mercedes o Red Bull pasaron a concentrar casi el 60% de las carreras de una década entera.</div>
+
+    <div class="query-box">
+        <div class="query-header">E06 - El Patrón Anómalo de Dominancia</div>
+        <div class="query-purpose"><strong>QUÉ BUSCAMOS:</strong> Medir el porcentaje de victorias que el constructor líder de cada década logró acaparar.</div>
+        <pre class="query-code">
+WITH wins_by_decade AS (
+    SELECT (r.year / 10) * 10 AS decada, rr.constructor_id, COUNT(*) AS victorias,
+           ROW_NUMBER() OVER(PARTITION BY (r.year / 10) * 10 ORDER BY COUNT(*) DESC) AS rn
+    FROM race_result rr JOIN race r ON r.id = rr.race_id
+    WHERE rr.position_number = 1 GROUP BY decada, rr.constructor_id
+)
+SELECT decada, constructor_id AS constructor_lider, victorias,
+       ROUND(victorias * 100.0 / (SELECT COUNT(*) FROM race_result rr2 JOIN race r2 ON r2.id = rr2.race_id 
+       WHERE rr2.position_number = 1 AND (r2.year / 10) * 10 = wins_by_decade.decada), 1) AS pct_decada
+FROM wins_by_decade WHERE rn = 1 ORDER BY decada;</pre>
+        <div class="query-result">RESULTADO CLAVE: El monopolio de victorias saltó del 24% en 1960 al casi 60% en la era híbrida actual.</div>
+    </div>
+
+    <div class="speaker">JULI:</div>
+    <div class="dialogue">Esa anomalía nos llevó directamente a plantear nuestra hipótesis central: <i>'El paquete tecnológico y la posición de salida hoy determinan el resultado mucho más que en las eras clásicas.'</i> Hacemos una pausa para contarles que todo esto que ven está diseñado pensando en nuestra audiencia: periodistas deportivos que necesitan este respaldo estadístico.</div>
+
+
+    <div class="block-title">BLOQUE 3: DEMOSTRACIÓN ESTADÍSTICA (Q01 y Q02) | T. Estimado: 1.5 min</div>
+    
+    <div class="action">[Acción: Bajar a la Sección 4 y detenerse en Q01 y Q02]</div>
+
+    <div class="speaker">NAR:</div>
+    <div class="dialogue">Miren la Q01: acá demostramos que históricamente se ganaba desde más atrás en la grilla, pero hoy salir fuera del top 3 es casi una condena. Y en la Q02, los datos son lapidarios: aunque hoy se corren muchísimas más carreras, la cantidad de pilotos distintos que logran subirse al podio ganador se desplomó.</div>
+
+    <div class="query-box">
+        <div class="query-header">Q01 y Q02 - Posición de Grilla y Apertura del Campeonato</div>
+        <div class="query-purpose"><strong>QUÉ BUSCAMOS:</strong> Verificar de dónde vienen las victorias históricas y cuántos pilotos distintos ganan por era.</div>
+        <pre class="query-code">
+-- Q01: Posición de grilla histórica
+SELECT grid_position_number AS grilla, COUNT(*) AS victorias,
+       ROUND(COUNT(*) * 100.0 / (SELECT COUNT(*) FROM race_result 
+       WHERE position_number = 1 AND grid_position_number IS NOT NULL), 1) AS pct
+FROM race_result WHERE position_number = 1 AND grid_position_number IS NOT NULL
+GROUP BY grilla ORDER BY victorias DESC LIMIT 3;
+
+-- Q02: Pilotos distintos por era
+SELECT 
+    CASE WHEN r.year <= 1979 THEN 'Clásica' WHEN r.year <= 1999 THEN 'Turbo/NA'
+         WHEN r.year <= 2009 THEN 'Schumacher' ELSE 'Híbrida' END AS era,
+    COUNT(DISTINCT rr.driver_id) AS pilotos_ganadores, COUNT(*) AS total_victorias
+FROM race_result rr JOIN race r ON rr.race_id = r.id
+WHERE rr.position_number = 1 GROUP BY era ORDER BY era;</pre>
+        <div class="query-result">RESULTADO CLAVE: Casi el 60% de victorias vienen de la Pole o P2. Además, la era Híbrida tiene menos pilotos ganadores distintos que la era Clásica, a pesar de tener más carreras.</div>
+    </div>
+
+
+    <div class="block-title">BLOQUE 4: EL GOLPE FINAL Y CIERRE (Q03 y Q04) | T. Estimado: 1.5 min</div>
+    
+    <div class="action">[Acción: Mostrar las últimas dos consultas Q03 y Q04]</div>
+
+    <div class="speaker">JULI:</div>
+    <div class="dialogue">Finalmente, en la Q03 filtramos solo las carreras donde se definía el campeonato del mundo. En las eras clásicas, esas finales las ganaba cualquiera; hoy, el que levanta la copa casi siempre lo hace largando desde la pole position y con el motor dominante.</div>
+
+    <div class="speaker">NAR:</div>
+    <div class="dialogue">Y la Q04 cierra el argumento de la máquina vs. piloto: hoy el campeón mundial es sistemáticamente el mismo que más poles hizo. Antes podías ser campeón corriendo mejor el domingo; hoy, si no tenés la ingeniería más rápida el sábado, no hay talento que lo compense.</div>
+
+    <div class="query-box">
+        <div class="query-header">Q03 y Q04 - Presión por el Título y Poles del Campeón</div>
+        <div class="query-purpose"><strong>QUÉ BUSCAMOS:</strong> Analizar las carreras que definen campeonato (drivers_championship_decider) y la relación Poles/Victorias del campeón.</div>
+        <pre class="query-code">
+-- Q04: Pole vs Campeonato
+SELECT sds.year, sds.driver_id AS campeon,
+       sd.total_pole_positions AS poles, sd.total_race_wins AS victorias,
+       ROUND(sd.total_pole_positions * 100.0 / NULLIF(sd.total_race_wins, 0), 1) AS pct_poles_vic
+FROM season_driver_standing sds
+JOIN season_driver sd ON sd.driver_id = sds.driver_id AND sd.year = sds.year
+WHERE sds.championship_won = TRUE ORDER BY sds.year;</pre>
+        <div class="query-result">RESULTADO CLAVE: El campeón moderno tiene una correlación de casi 1:1 entre Poles y Victorias, demostrando que la velocidad a una vuelta (máquina) dicta la temporada.</div>
+    </div>
+
+    <div class="speaker">JULI:</div>
+    <div class="dialogue">Como pueden ver, la página recorre desde cómo validamos los datos hasta cómo demostramos la hipótesis. Muchas gracias.</div>
+    
+</body>
+</html>

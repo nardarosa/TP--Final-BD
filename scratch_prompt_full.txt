@@ -1,0 +1,446 @@
+<USER_REQUEST>
+# Tercera entrega del trabajo práctico: Las eras de la Fórmula 1 — Análisis SQL completo
+
+## 1. Tu tarea
+
+Quiero que trabajes sobre mi proyecto de Base de Datos de Fórmula 1 y desarrolles una nueva versión HTML, completa, rigurosa y visualmente consistente con las dos entregas existentes.
+
+Los archivos de referencia son:
+
+- `TP-cuatrimestral-1er_entrega-Rosa_Kimel_Connon.html`
+- `TP-cuatrimestral-2da_entrega-Rosa_Kimel_Connon.html`
+
+Leé ambos archivos completos antes de empezar. No te bases únicamente en sus introducciones o en fragmentos del código.
+
+El trabajo utiliza F1DB sobre PostgreSQL 16 y está orientado a la Licenciatura en Ciencia de Datos.
+
+**No quiero solamente un HTML con consultas SQL. Quiero una investigación analítica bien construida, con preguntas relevantes, consultas justificadas, resultados reales, interpretaciones y una conclusión general que evalúe la hipótesis.**
+
+Creá un archivo nuevo llamado:
+
+`TP-cuatrimestral-3ra_entrega-Rosa_Kimel_Connon.html`
+
+No sobrescribas los archivos de las entregas anteriores. El nuevo HTML tiene que poder abrirse directamente en un navegador.
+
+## 2. Contexto que debés conservar
+
+El título del proyecto es «Las eras de la Fórmula 1».
+
+La hipótesis original es:
+
+«En la Fórmula 1 moderna (post-2010), la posición de largada y el fabricante de motor son factores significativamente más determinantes del resultado final que en las primeras eras del campeonato (1950–1980), evidenciando que la competitividad se concentra cada vez más en ventajas tecnológicas y estratégicas por sobre el desempeño individual del piloto en carrera».
+
+La pregunta principal es:
+
+¿En qué medida la posición de largada y el fabricante de motor predicen el éxito en carrera, y cómo varía ese poder predictivo entre las distintas eras de la Fórmula 1?
+
+La audiencia está compuesta por periodistas deportivos, creadores de contenido y analistas de datos especializados en automovilismo, que necesitan evidencia cuantitativa para comprender la competitividad histórica, respaldar análisis y debatir el peso del piloto frente al auto.
+
+Conservá esta hipótesis, la pregunta principal, los objetivos y la audiencia de los archivos originales. Podés mejorar su redacción cuando sea necesario, pero no cambies el sentido del proyecto.
+
+## 3. Antes de escribir las consultas: inspeccioná la base de datos real
+
+Esta etapa es obligatoria.
+
+Conectate a PostgreSQL si el entorno lo permite e inspeccioná el esquema real de F1DB. Revisá las tablas, vistas, columnas, claves primarias, claves foráneas y relaciones que necesitarás para los análisis.
+
+Partí de las estructuras que ya aparecen en las entregas, como:
+
+- `race_result`
+- `race`
+- `driver`
+- `season_driver`
+- `season_driver_standing`
+
+También investigá las tablas descriptivas de fabricantes de motores, constructores, pilotos y motivos de abandono que realmente existan en el esquema.
+
+No supongas nombres de columnas ni relaciones sin verificarlos. Confirmá especialmente:
+
+- Si `race_result` contiene únicamente los resultados de las carreras principales y cómo se identifica una participación.
+- Qué columna representa la posición final, la posición de largada, el fabricante de motor y el constructor.
+- Cómo se relacionan los campeones de cada temporada con sus resultados por carrera.
+- Cómo se registran los abandonos y sus motivos, distinguiendo averías mecánicas de accidentes y otras causas.
+- Cómo están definidos los indicadores de carreras que deciden el campeonato.
+- Si existen valores nulos, duplicados, resultados sin posición numérica u otras particularidades que afecten a las métricas.
+
+Si necesitás conocer los valores posibles de una columna, realizá consultas exploratorias para comprobarlos.
+
+Si tenés acceso a la base, ejecutá todas las consultas finales. Si no tenés acceso, escribí SQL compatible con el esquema que puedas verificar, pero no inventes resultados: indicá claramente que deben ejecutarse en PostgreSQL y dejá las conclusiones cuantitativas pendientes.
+
+## 4. Metodología general
+
+Las consultas deben formar una secuencia coherente y no ser ejercicios aislados.
+
+El razonamiento tiene que avanzar desde una descripción histórica hasta la medición del peso de la grilla, el análisis del fabricante de motor, la concentración del éxito y la comparación del desempeño de los pilotos.
+
+Organizá la investigación en los siguientes ejes:
+
+1. Posición de largada y probabilidad de ganar.
+2. Evolución histórica de la conversión de pole a victoria.
+3. Competitividad y concentración de victorias.
+4. Peso del fabricante de motor.
+5. Influencia del constructor y desempeño de los pilotos.
+6. Confiabilidad mecánica y variabilidad de los resultados.
+7. Evaluación conjunta de la hipótesis.
+
+Usá principalmente PostgreSQL y recursos SQL que pueda explicar un estudiante universitario de Ciencia de Datos: `JOIN`, `CASE WHEN`, `GROUP BY`, `HAVING`, funciones de agregación, subconsultas, CTE (`WITH`), funciones de ventana, `FILTER`, `NULLIF`, `RANK` y otras herramientas cuando estén justificadas.
+
+No incorpores complejidad técnica porque sí. Cada recurso tiene que contribuir a responder una pregunta.
+
+### Comparabilidad temporal
+
+Usá temporadas completas hasta 2025, salvo que haya una razón metodológica explícita para otra delimitación. La temporada 2026 está en curso y no debe mezclarse directamente con temporadas completas como si tuviera la misma cantidad de oportunidades.
+
+Conservá la comparación entre el período clásico y el moderno, pero utilizá también décadas completas para estudiar tendencias.
+
+Para comparar períodos de diferente duración, priorizá tasas, porcentajes, promedios por temporada y otras métricas normalizadas, no conteos absolutos sin contexto.
+
+Usá definiciones de eras consistentes en todas las consultas. Preferentemente, distinguí las etapas por sus intervalos temporales y evitá llamar «era híbrida» a todo el período posterior a 2010, ya que esa denominación no es exacta para todos los años incluidos.
+
+Cuando una consulta excluya registros nulos, explicá por qué. Procurá que los denominadores sean correctos y comparables.
+
+## 5. Consultas que debe contener el análisis
+
+Quiero un mínimo de diez consultas principales y dos análisis complementarios, con sus resultados reales si se puede acceder a PostgreSQL. Las siguientes son las preguntas que deben orientar el trabajo. Podés adaptar el SQL después de inspeccionar el esquema, pero no elimines un eje sin explicar por qué.
+
+### Q01. ¿Desde qué posiciones de la grilla se obtuvieron las victorias históricas?
+
+Conservá la consulta original como punto de partida y mejorá su presentación si es necesario.
+
+Calculá cuántas victorias se obtuvieron desde cada posición de largada y qué porcentaje representan sobre el total de victorias con una posición conocida.
+
+Explicá que esta consulta describe la distribución de los ganadores, pero no mide directamente la probabilidad de ganar desde cada posición. Esa distinción debe servir de transición a Q02.
+
+### Q02. ¿Qué probabilidad de ganar y de conseguir un podio tiene un piloto según su posición de largada y la era?
+
+Esta es una de las consultas más importantes del trabajo.
+
+Dividí las posiciones de largada en franjas comparables, por ejemplo:
+
+- P1.
+- P2–P3.
+- P4–P6.
+- P7–P10.
+- P11 en adelante.
+
+Para cada era y franja, calculá:
+
+- Total de participaciones.
+- Total de victorias.
+- Porcentaje de victorias sobre las participaciones.
+- Total de podios.
+- Porcentaje de podios sobre las participaciones.
+
+Usá como denominador todas las participaciones válidas de esa franja, no solamente las carreras ganadas.
+
+El objetivo es determinar si la probabilidad de ganar o terminar en el podio desde posiciones equivalentes cambió con el tiempo.
+
+Incluí comparaciones concretas entre las primeras eras y el período moderno, siempre que los datos reales las respalden.
+
+### Q03. ¿Cómo evolucionó la tasa de conversión de pole a victoria?
+
+Conservá la idea de la consulta anual de la segunda entrega y mejorala.
+
+Calculá por año y por década:
+
+- Carreras con posición de pole conocida.
+- Victorias conseguidas por pilotos que largaron desde P1.
+- Tasa de conversión de pole a victoria.
+
+El numerador debe contar carreras ganadas desde la pole. El denominador debe contar carreras en las que la posición de pole pueda evaluarse correctamente.
+
+La tasa debe ser:
+
+victorias desde P1 / oportunidades de largar desde P1 × 100.
+
+Mostrá la evolución histórica y verificá si hay una tendencia creciente o si existen períodos con comportamientos diferentes.
+
+No describas la tendencia como monotónica, sostenida o inevitable hasta comprobarlo con los resultados.
+
+### Q04. ¿Qué tan concentradas están las victorias por constructor en cada era?
+
+Conservá el análisis de concentración de victorias por constructor de la segunda entrega, pero revisá el cálculo del índice HHI y su denominador.
+
+Calculá, por período:
+
+- Cantidad de constructores que lograron al menos una victoria.
+- Total de victorias consideradas.
+- Porcentaje de victorias del constructor más ganador.
+- Distribución porcentual de victorias entre los constructores.
+- Índice de concentración HHI, calculado a partir de las participaciones porcentuales de cada constructor sobre el total de victorias del período.
+
+Explicá cómo se interpreta el índice y qué limitaciones presenta.
+
+No concluyas que una mayor concentración de victorias demuestra automáticamente que el motor es la causa. Esta consulta mide la concentración por constructor, no el efecto aislado de una tecnología.
+
+### Q05. ¿Qué porcentaje de las victorias de cada era corresponde a cada fabricante de motor?
+
+Conservá el análisis de victorias por fabricante, pero verificá que se esté utilizando el fabricante del motor y no el nombre de un constructor o una marca agrupada incorrectamente.
+
+Para cada período, calculá:
+
+- Fabricante de motor.
+- Victorias obtenidas.
+- Porcentaje de las victorias de la era correspondiente.
+- Ranking de los principales fabricantes por cantidad de victorias.
+
+Usá los nombres descriptivos de los fabricantes cuando existan en el esquema; no presentes únicamente identificadores si se pueden obtener nombres mediante un `JOIN`.
+
+Esta consulta tiene que mostrar cómo se distribuyen las victorias históricamente entre los fabricantes. Explicá qué aporta a la hipótesis y qué no puede demostrar por sí sola.
+
+### Q06. ¿Qué tasa de éxito tiene cada fabricante de motor por participación?
+
+Esta consulta debe complementar la anterior, no repetirla.
+
+Calculá por era y fabricante:
+
+- Total de participaciones válidas.
+- Total de victorias.
+- Tasa de victoria sobre participaciones.
+- Opcionalmente, tasa de podio.
+
+El denominador debe representar oportunidades reales de obtener un resultado en carrera.
+
+Aplicá un umbral mínimo de participaciones para no destacar fabricantes con muestras demasiado pequeñas. Justificá ese umbral y permití que el lector vea el tamaño de la muestra.
+
+Compará el ranking por victorias totales con el ranking por tasa de victoria y explicá por qué podrían diferir.
+
+### Q07. ¿La ventaja asociada al fabricante de motor persiste al comparar posiciones de largada similares?
+
+Este es uno de los análisis complementarios más valiosos.
+
+Compará las tasas de victoria de distintos fabricantes dentro de una misma era y franja de largada.
+
+Por ejemplo, analizá por separado a quienes largaron desde P1, P2–P3 y posiciones posteriores.
+
+Calculá participaciones, victorias y tasas de victoria; excluí o identificá claramente las muestras insuficientes.
+
+La pregunta es si existen diferencias entre fabricantes incluso entre participaciones que empezaron desde posiciones equivalentes.
+
+No afirmes que esto aísla por completo el efecto del motor: también influyen el constructor, el piloto, la estrategia, la confiabilidad y otras variables. Presentalo como una comparación adicional que permite profundizar el análisis, no como una prueba causal definitiva.
+
+### Q08. ¿Hay menos pilotos ganadores distintos por temporada en las eras modernas?
+
+Reformulá la consulta original sobre cantidad de pilotos ganadores, teniendo en cuenta que las eras no tienen la misma duración.
+
+Primero calculá la cantidad de pilotos distintos que ganaron al menos una carrera en cada temporada. Después promediá esa medida por década o por era.
+
+Mostrá:
+
+- Cantidad de temporadas consideradas.
+- Promedio de pilotos ganadores distintos por temporada.
+- Promedio de victorias por temporada como contexto.
+- Si corresponde, la cantidad de temporadas sin datos suficientes.
+
+No utilices el total de ganadores distintos de una era de treinta años como una comparación directa con otra de diez o dieciséis años.
+
+Interpretá el indicador como una medida aproximada de apertura competitiva, reconociendo que no mide por sí solo la calidad de los pilotos ni la igualdad de los autos.
+
+### Q09. ¿Qué porcentaje de las victorias de los campeones se consiguió largando desde P1?
+
+Corregí la consulta original sobre los campeones.
+
+No dividas las poles totales por las victorias totales para calcular una tasa de victorias desde la pole.
+
+Identificá a cada campeón de temporada mediante las tablas reales de campeonatos y relacioná sus resultados con las carreras que disputó durante ese año.
+
+Calculá por década:
+
+- Temporadas con información válida.
+- Victorias conseguidas por los campeones.
+- Victorias de esos campeones obtenidas largando desde P1.
+- Porcentaje de victorias desde P1.
+
+El objetivo es comprobar si los campeones modernos convirtieron una proporción mayor de sus victorias al largar primeros. Distinguí esta métrica de la cantidad total de poles que consiguió un campeón.
+
+### Q10. ¿La ventaja de la pole es mayor en las carreras que deciden el campeonato?
+
+Mejorá el análisis original de las carreras decisivas.
+
+No muestres solamente un listado de ganadores. Compará la tasa de victorias desde P1 en carreras que definieron el campeonato con la tasa de las demás carreras, agrupando por era.
+
+Utilizá el indicador real de la base para identificar las carreras decisivas. Verificá su significado y disponibilidad antes de interpretar los resultados.
+
+Incluí los tamaños de muestra, los porcentajes correspondientes y las diferencias observadas entre ambos grupos.
+
+Si el número de carreras decisivas es pequeño, explicá que las conclusiones son descriptivas y que las muestras reducidas limitan la capacidad de generalizar.
+
+### Q11. ¿Cómo cambió la confiabilidad mecánica de los autos?
+
+Reformulá el análisis de abandonos de la segunda entrega.
+
+Primero inspeccioná cómo registra F1DB los motivos de retiro y clasificá como mecánicas exclusivamente las causas que realmente correspondan a averías o problemas mecánicos.
+
+No cuentes todas las participaciones sin posición final como fallas mecánicas. Los accidentes, las sanciones, los problemas administrativos y otros motivos deben distinguirse siempre que el esquema lo permita.
+
+Calculá por era:
+
+- Total de participaciones.
+- Abandonos mecánicos identificados.
+- Porcentaje de abandonos mecánicos sobre las participaciones.
+- Otras causas de abandono, cuando los datos lo permitan.
+
+Documentá las limitaciones de clasificación si la base no permite identificar todos los motivos.
+
+Analizá si la tasa de fallas mecánicas cambió históricamente y si ese patrón es compatible con una reducción de la incertidumbre asociada al auto. No atribuyas todas las variaciones competitivas a la confiabilidad.
+
+### Q12. ¿Qué diferencias se observan entre compañeros de equipo que comparten el mismo paquete técnico?
+
+Este análisis debe introducir la dimensión del desempeño individual del piloto.
+
+Identificá compañeros de equipo que hayan competido para el mismo constructor durante una misma temporada. Compará sus participaciones, victorias, podios y tasas de éxito, procurando utilizar denominadores adecuados.
+
+Explicá qué información puede aportar la comparación entre pilotos que comparten constructor y época, y qué limitaciones permanecen: cantidad de carreras disputadas, lesiones o ausencias, diferencias de experiencia, jerarquías dentro del equipo y otros factores.
+
+Si no es posible reconstruir correctamente la relación piloto-constructor-temporada con las tablas disponibles, no inventes esa relación. Explicá la limitación y proponé la consulta alternativa que sí pueda ejecutarse.
+
+## 6. Análisis complementario adicional
+
+Si los datos lo permiten, incorporá también el cambio de posición entre la largada y la llegada.
+
+Calculá la diferencia entre posición de largada y posición final de cada piloto, por era, excluyendo o identificando correctamente los registros que no sean comparables.
+
+Este análisis debe ser complementario y no reemplazar la tasa de victoria por franja de grilla.
+
+Su finalidad es observar si los resultados finales se apartan más o menos de las posiciones iniciales a través del tiempo. Explicá que el análisis de posiciones finales numéricas puede excluir abandonos y otros casos, por lo que debe interpretarse junto con el análisis de confiabilidad mecánica.
+
+## 7. Reglas para todas las consultas
+
+Estas reglas son obligatorias:
+
+1. Cada consulta tiene que responder una pregunta concreta relacionada con la propuesta y la hipótesis.
+2. Cada consulta debe tener SQL ejecutable y compatible con PostgreSQL 16.
+3. Todos los resultados y porcentajes deben obtenerse de las consultas reales, no ser estimaciones inventadas.
+4. No presentes como ejecutada una consulta que no hayas podido ejecutar.
+5. No completes las tablas del HTML con números supuestos para que las conclusiones parezcan más contundentes.
+6. En cada consulta explicá qué mide el numerador y qué mide el denominador.
+7. Evitá denominadores incorrectos, duplicaciones producidas por `JOIN`, registros de clasificación o entrenamientos mezclados con carreras principales y muestras que no sean comparables.
+8. Comprobá la integridad de las relaciones utilizadas.
+9. Usá nombres descriptivos para las columnas y los resultados.
+10. Registrá los tamaños de muestra y tratá de manera explícita los valores nulos.
+11. No elimines una consulta simplemente porque su resultado contradiga la hipótesis. Ese resultado también debe interpretarse.
+12. No uses frases como «queda demostrado de manera irrefutable» si el análisis no permite sostenerlas.
+
+Si el esquema tiene una vista específica para los resultados principales de carrera, preferila cuando corresponda. Si hay diferencias entre tablas y vistas, justificá cuál utilizaste.
+
+## 8. Cómo debe presentarse cada consulta en el HTML
+
+Cada consulta debe aparecer dentro de una sección visual propia, siguiendo el estilo de las entregas anteriores.
+
+Incluí obligatoriamente los siguientes apartados:
+
+**Pregunta de investigación:** qué se busca descubrir.
+
+**Relación con la hipótesis:** qué parte de la hipótesis permite evaluar.
+
+**Por qué elegimos esta consulta:** qué aporta que no aporten las anteriores y por qué esta métrica es adecuada.
+
+**Tablas y relaciones:** qué tablas se usan, cómo se relacionan y para qué sirve cada `JOIN`.
+
+**Consulta SQL:** el código completo, legible, con indentación y comentarios cuando resulten útiles.
+
+**Resultados reales:** tabla con los valores devueltos por la ejecución. Si la consulta no fue ejecutada, indicá expresamente que los resultados están pendientes, sin colocar valores de ejemplo como si fueran reales.
+
+**Interpretación:** explicá el resultado en lenguaje natural, con porcentajes, comparaciones y magnitudes concretas cuando haya datos reales.
+
+**Contribución al argumento:** indicá si los resultados respaldan, contradicen o no permiten evaluar suficientemente la parte de la hipótesis relacionada con esa consulta.
+
+**Limitaciones:** señalá las restricciones relevantes del indicador, de la muestra o de los datos.
+
+Las conclusiones individuales tienen que construirse a partir de los resultados observados. No redactes la interpretación de antemano para después acomodar los números a esa interpretación.
+
+## 9. Síntesis visual y análisis comparativo
+
+Agregá visualizaciones basadas en los resultados reales de SQL. Como mínimo, si los resultados pueden obtenerse:
+
+- Un gráfico temporal de la tasa de conversión pole-victoria.
+- Un gráfico comparativo de las tasas de victoria por franja de grilla y era.
+- Un gráfico de concentración de victorias por constructor.
+- Un gráfico de tasas de victoria por fabricante dentro de franjas de grilla comparables.
+- Un gráfico de evolución de abandonos mecánicos, si los motivos pueden clasificarse adecuadamente.
+
+Elegí el tipo de visualización en función de la pregunta. Los gráficos tienen que utilizar los resultados de las consultas y no valores escritos manualmente para ilustrar una tendencia supuesta.
+
+Acompañá cada gráfico con una interpretación breve y señalá los hallazgos que merecen especial atención.
+
+## 10. Conclusión general: evaluar la hipótesis
+
+Esta sección es fundamental y debe ser el resultado de toda la investigación, no una repetición de las introducciones.
+
+Primero resumí la evidencia relacionada con la posición de largada. Después, la evidencia relacionada con el fabricante del motor. Luego, integrá los resultados sobre concentración de constructores, desempeño de los pilotos y confiabilidad mecánica.
+
+La conclusión debe responder explícitamente:
+
+- ¿Qué evidencia se obtuvo de que la posición de largada se volvió más determinante?
+- ¿Qué evidencia se obtuvo acerca del peso del fabricante de motor?
+- ¿Los resultados continúan mostrando diferencias entre fabricantes cuando se comparan posiciones de largada similares?
+- ¿La concentración de victorias por constructor y la cantidad de ganadores distintos muestran un patrón coherente con la hipótesis?
+- ¿Qué aportó el análisis de los compañeros de equipo para distinguir el desempeño del piloto del paquete técnico?
+- ¿Qué resultados respaldan la hipótesis y cuáles la matizan o contradicen?
+- ¿Qué limitaciones impiden atribuir causalmente los resultados al motor o a la posición de largada?
+
+Terminá con un veredicto claro, respaldado por los resultados reales: la hipótesis queda respaldada por la evidencia disponible, respaldada parcialmente, no respaldada o no puede evaluarse suficientemente con las variables y datos disponibles.
+
+No fuerces una conclusión favorable. El propósito es construir un análisis de datos defendible, no confirmar una idea a cualquier costo.
+
+Diferenciá explícitamente una asociación estadística de una relación causal. Si no hay un análisis inferencial adecuado, no uses «significativamente» como sinónimo de «el porcentaje es mayor».
+
+Cerrá con una respuesta sintética a la pregunta principal del proyecto y explicá qué información útil podría obtener la audiencia destinataria del análisis.
+
+## 11. Diseño y estructura del nuevo HTML
+
+Usá los dos archivos anteriores como referencia directa del diseño. Quiero que la tercera entrega conserve una identidad visual coherente con ellos:
+
+- Estética editorial relacionada con la Fórmula 1.
+- Fondo neutro, tipografía serif en los títulos y tipografía sans-serif para el cuerpo.
+- Acentos rojos y tarjetas blancas.
+- Jerarquía clara de secciones y subtítulos.
+- Bloques de consulta SQL con formato legible y desplazamiento horizontal cuando sea necesario.
+- Tablas de resultados claras, con cifras alineadas.
+- Etiquetas de consulta y numeración coherentes.
+- Gráficos integrados en el contenido.
+- Navegación entre secciones y diseño adaptable a dispositivos móviles.
+- Contraste adecuado en los modos claro y oscuro si conservás esa funcionalidad.
+
+La nueva entrega debe parecer parte del mismo proyecto y no un sitio independiente con un estilo diferente.
+
+Mantené el nombre del proyecto y los autores que aparecen en los documentos existentes. Actualizá la identificación de la entrega y los índices según corresponda.
+
+Organizá la estructura de forma lógica:
+
+1. Portada y objetivo de la investigación.
+2. Resumen del EDA original.
+3. Hipótesis, pregunta y objetivos.
+4. Breve explicación de la metodología.
+5. Consultas analíticas y complementarias.
+6. Comparación transversal de los principales hallazgos.
+7. Conclusión general y evaluación de la hipótesis.
+8. Limitaciones y posibles líneas de investigación futura.
+
+Podés condensar el EDA original para evitar redundancias, pero no elimines información metodológica importante. Incorporá referencias claras a las dos entregas anteriores.
+
+## 12. Control de calidad antes de entregar
+
+Antes de dar por terminado el archivo:
+
+- Verificá que todas las consultas sean compatibles con PostgreSQL 16.
+- Ejecutá cada consulta cuando exista acceso a la base.
+- Revisá los denominadores, los `JOIN`, los registros nulos y los tamaños de muestra.
+- Comprobá que las tablas HTML reproduzcan los resultados reales.
+- Asegurate de que los gráficos correspondan a los mismos resultados.
+- Revisá que no haya cifras de ejemplo presentadas como resultados reales.
+- Confirmá que las interpretaciones coincidan con las cifras y no exageren lo que permiten concluir.
+- Comprobá que todos los enlaces internos funcionen y que el HTML abra correctamente en un navegador.
+- Verificá la coherencia entre la hipótesis, los objetivos, las preguntas, las consultas y la conclusión final.
+- Si encontrás errores en una consulta de las entregas anteriores, corregilos en la nueva entrega y explicá brevemente el cambio cuando sea metodológicamente relevante.
+
+No te limites a proponer un plan ni a devolverme fragmentos de código. Trabajá sobre el proyecto, generá el HTML completo y guardalo con el nombre solicitado.
+
+Al terminar, indicá qué archivo creaste, qué consultas pudiste ejecutar realmente, cuáles quedaron pendientes por falta de acceso a datos y cuáles fueron las correcciones metodológicas más importantes.
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-10-18T16:03:43-03:00.
+</ADDITIONAL_METADATA>
+<USER_SETTINGS_CHANGE>
+The user changed setting `Model Selection` from Claude Sonnet 4.6 (Thinking) to GPT-OSS 120B (Medium). No need to comment on this change if the user doesn't ask about it. If reporting what model you are, please use a human readable name instead of the exact string.
+</USER_SETTINGS_CHANGE>

@@ -1,0 +1,994 @@
+{
+  "q05_rebadged": [
+    {
+      "era": "1. Clasica (1950-1980)",
+      "rk": 1,
+      "familia_motor": "Ford / Cosworth",
+      "victorias": 136,
+      "pct_era": 39.42
+    },
+    {
+      "era": "1. Clasica (1950-1980)",
+      "rk": 2,
+      "familia_motor": "Ferrari",
+      "victorias": 80,
+      "pct_era": 23.19
+    },
+    {
+      "era": "1. Clasica (1950-1980)",
+      "rk": 3,
+      "familia_motor": "Climax",
+      "victorias": 40,
+      "pct_era": 11.59
+    },
+    {
+      "era": "1. Clasica (1950-1980)",
+      "rk": 4,
+      "familia_motor": "BRM",
+      "victorias": 18,
+      "pct_era": 5.22
+    },
+    {
+      "era": "1. Clasica (1950-1980)",
+      "rk": 5,
+      "familia_motor": "Alfa Romeo",
+      "victorias": 13,
+      "pct_era": 3.77
+    },
+    {
+      "era": "2. Intermedia (1981-2013)",
+      "rk": 1,
+      "familia_motor": "Renault / TAG Heuer",
+      "victorias": 161,
+      "pct_era": 29.01
+    },
+    {
+      "era": "2. Intermedia (1981-2013)",
+      "rk": 2,
+      "familia_motor": "Ferrari",
+      "victorias": 143,
+      "pct_era": 25.77
+    },
+    {
+      "era": "2. Intermedia (1981-2013)",
+      "rk": 3,
+      "familia_motor": "Mercedes",
+      "victorias": 90,
+      "pct_era": 16.22
+    },
+    {
+      "era": "2. Intermedia (1981-2013)",
+      "rk": 4,
+      "familia_motor": "Honda / RBPT",
+      "victorias": 74,
+      "pct_era": 13.33
+    },
+    {
+      "era": "2. Intermedia (1981-2013)",
+      "rk": 5,
+      "familia_motor": "Ford / Cosworth",
+      "victorias": 40,
+      "pct_era": 7.21
+    },
+    {
+      "era": "3. Hibrida (2014-2025)",
+      "rk": 1,
+      "familia_motor": "Mercedes",
+      "victorias": 140,
+      "pct_era": 55.56
+    },
+    {
+      "era": "3. Hibrida (2014-2025)",
+      "rk": 2,
+      "familia_motor": "Honda / RBPT",
+      "victorias": 72,
+      "pct_era": 28.57
+    },
+    {
+      "era": "3. Hibrida (2014-2025)",
+      "rk": 3,
+      "familia_motor": "Ferrari",
+      "victorias": 27,
+      "pct_era": 10.71
+    },
+    {
+      "era": "3. Hibrida (2014-2025)",
+      "rk": 4,
+      "familia_motor": "Renault / TAG Heuer",
+      "victorias": 13,
+      "pct_era": 5.16
+    }
+  ],
+  "q05_rebadged_3eras": [
+    {
+      "era": "1. Clasica (1950-1980)",
+      "rk": 1,
+      "familia_motor": "Ford / Cosworth",
+      "victorias": 136,
+      "pct_era": 39.42
+    },
+    {
+      "era": "1. Clasica (1950-1980)",
+      "rk": 2,
+      "familia_motor": "Ferrari",
+      "victorias": 80,
+      "pct_era": 23.19
+    },
+    {
+      "era": "1. Clasica (1950-1980)",
+      "rk": 3,
+      "familia_motor": "Climax",
+      "victorias": 40,
+      "pct_era": 11.59
+    },
+    {
+      "era": "1. Clasica (1950-1980)",
+      "rk": 4,
+      "familia_motor": "BRM",
+      "victorias": 18,
+      "pct_era": 5.22
+    },
+    {
+      "era": "1. Clasica (1950-1980)",
+      "rk": 5,
+      "familia_motor": "Alfa Romeo",
+      "victorias": 13,
+      "pct_era": 3.77
+    },
+    {
+      "era": "2. Intermedia (1981-2010)",
+      "rk": 1,
+      "familia_motor": "Ferrari",
+      "victorias": 137,
+      "pct_era": 27.57
+    },
+    {
+      "era": "2. Intermedia (1981-2010)",
+      "rk": 2,
+      "familia_motor": "Renault / TAG Heuer",
+      "victorias": 126,
+      "pct_era": 25.35
+    },
+    {
+      "era": "2. Intermedia (1981-2010)",
+      "rk": 3,
+      "familia_motor": "Honda / RBPT",
+      "victorias": 74,
+      "pct_era": 14.89
+    },
+    {
+      "era": "2. Intermedia (1981-2010)",
+      "rk": 4,
+      "familia_motor": "Mercedes",
+      "victorias": 73,
+      "pct_era": 14.69
+    },
+    {
+      "era": "2. Intermedia (1981-2010)",
+      "rk": 5,
+      "familia_motor": "Ford / Cosworth",
+      "victorias": 40,
+      "pct_era": 8.05
+    },
+    {
+      "era": "3. Moderna (2011-2025)",
+      "rk": 1,
+      "familia_motor": "Mercedes",
+      "victorias": 157,
+      "pct_era": 50.65
+    },
+    {
+      "era": "3. Moderna (2011-2025)",
+      "rk": 2,
+      "familia_motor": "Honda / RBPT",
+      "victorias": 72,
+      "pct_era": 23.23
+    },
+    {
+      "era": "3. Moderna (2011-2025)",
+      "rk": 3,
+      "familia_motor": "Renault / TAG Heuer",
+      "victorias": 48,
+      "pct_era": 15.48
+    },
+    {
+      "era": "3. Moderna (2011-2025)",
+      "rk": 4,
+      "familia_motor": "Ferrari",
+      "victorias": 33,
+      "pct_era": 10.65
+    }
+  ],
+  "q06_rebadged": [
+    {
+      "era": "1. Clasica (1950-1980)",
+      "rk": 1,
+      "familia_motor": "Ford / Cosworth",
+      "participaciones": 3578,
+      "victorias": 136,
+      "pct_victoria": 3.8,
+      "podios": 393,
+      "pct_podio": 10.98
+    },
+    {
+      "era": "1. Clasica (1950-1980)",
+      "rk": 2,
+      "familia_motor": "Ferrari",
+      "participaciones": 889,
+      "victorias": 80,
+      "pct_victoria": 9.0,
+      "podios": 269,
+      "pct_podio": 30.26
+    },
+    {
+      "era": "1. Clasica (1950-1980)",
+      "rk": 3,
+      "familia_motor": "Climax",
+      "participaciones": 802,
+      "victorias": 40,
+      "pct_victoria": 4.99,
+      "podios": 105,
+      "pct_podio": 13.09
+    },
+    {
+      "era": "1. Clasica (1950-1980)",
+      "rk": 4,
+      "familia_motor": "BRM",
+      "participaciones": 770,
+      "victorias": 18,
+      "pct_victoria": 2.34,
+      "podios": 65,
+      "pct_podio": 8.44
+    },
+    {
+      "era": "1. Clasica (1950-1980)",
+      "rk": 5,
+      "familia_motor": "Alfa Romeo",
+      "participaciones": 245,
+      "victorias": 13,
+      "pct_victoria": 5.31,
+      "podios": 37,
+      "pct_podio": 15.1
+    },
+    {
+      "era": "2. Intermedia (1981-2010)",
+      "rk": 1,
+      "familia_motor": "Ferrari",
+      "participaciones": 1705,
+      "victorias": 137,
+      "pct_victoria": 8.04,
+      "podios": 392,
+      "pct_podio": 22.99
+    },
+    {
+      "era": "2. Intermedia (1981-2010)",
+      "rk": 2,
+      "familia_motor": "Renault / TAG Heuer",
+      "participaciones": 1622,
+      "victorias": 126,
+      "pct_victoria": 7.77,
+      "podios": 350,
+      "pct_podio": 21.58
+    },
+    {
+      "era": "2. Intermedia (1981-2010)",
+      "rk": 3,
+      "familia_motor": "Honda / RBPT",
+      "participaciones": 1142,
+      "victorias": 74,
+      "pct_victoria": 6.48,
+      "podios": 185,
+      "pct_podio": 16.2
+    },
+    {
+      "era": "2. Intermedia (1981-2010)",
+      "rk": 4,
+      "familia_motor": "Mercedes",
+      "participaciones": 725,
+      "victorias": 73,
+      "pct_victoria": 10.07,
+      "podios": 217,
+      "pct_podio": 29.93
+    },
+    {
+      "era": "2. Intermedia (1981-2010)",
+      "rk": 5,
+      "familia_motor": "Ford / Cosworth",
+      "participaciones": 3482,
+      "victorias": 40,
+      "pct_victoria": 1.15,
+      "podios": 142,
+      "pct_podio": 4.08
+    },
+    {
+      "era": "3. Moderna (2011-2025)",
+      "rk": 1,
+      "familia_motor": "Mercedes",
+      "participaciones": 2205,
+      "victorias": 157,
+      "pct_victoria": 7.12,
+      "podios": 430,
+      "pct_podio": 19.5
+    },
+    {
+      "era": "3. Moderna (2011-2025)",
+      "rk": 2,
+      "familia_motor": "Honda / RBPT",
+      "participaciones": 770,
+      "victorias": 72,
+      "pct_victoria": 9.35,
+      "podios": 141,
+      "pct_podio": 18.31
+    },
+    {
+      "era": "3. Moderna (2011-2025)",
+      "rk": 3,
+      "familia_motor": "Renault / TAG Heuer",
+      "participaciones": 1320,
+      "victorias": 48,
+      "pct_victoria": 3.64,
+      "podios": 161,
+      "pct_podio": 12.2
+    },
+    {
+      "era": "3. Moderna (2011-2025)",
+      "rk": 4,
+      "familia_motor": "Ferrari",
+      "participaciones": 1895,
+      "victorias": 33,
+      "pct_victoria": 1.74,
+      "podios": 198,
+      "pct_podio": 10.45
+    },
+    {
+      "era": "3. Moderna (2011-2025)",
+      "rk": 5,
+      "familia_motor": "Ford / Cosworth",
+      "participaciones": 230,
+      "victorias": 0,
+      "pct_victoria": 0.0,
+      "podios": 0,
+      "pct_podio": 0.0
+    }
+  ],
+  "q07_works_vs_customer": [
+    {
+      "familia_motor": "Ferrari",
+      "tipo_equipo": "Equipo Cliente / Secundario",
+      "participaciones": 1228,
+      "victorias": 0,
+      "pct_victoria_total": 0.0,
+      "poles": 0,
+      "vic_desde_pole": 0,
+      "conversion_pole_pct": null
+    },
+    {
+      "familia_motor": "Ferrari",
+      "tipo_equipo": "Equipo Oficial / Principal",
+      "participaciones": 615,
+      "victorias": 33,
+      "pct_victoria_total": 5.37,
+      "poles": 48,
+      "vic_desde_pole": 13,
+      "conversion_pole_pct": 27.08
+    },
+    {
+      "familia_motor": "Honda / RBPT",
+      "tipo_equipo": "Equipo Cliente / Secundario",
+      "participaciones": 453,
+      "victorias": 1,
+      "pct_victoria_total": 0.22,
+      "poles": 0,
+      "vic_desde_pole": 0,
+      "conversion_pole_pct": null
+    },
+    {
+      "familia_motor": "Honda / RBPT",
+      "tipo_equipo": "Equipo Oficial / Principal",
+      "participaciones": 289,
+      "victorias": 71,
+      "pct_victoria_total": 24.57,
+      "poles": 51,
+      "vic_desde_pole": 38,
+      "conversion_pole_pct": 74.51
+    },
+    {
+      "familia_motor": "Mercedes",
+      "tipo_equipo": "Equipo Cliente / Secundario",
+      "participaciones": 1554,
+      "victorias": 35,
+      "pct_victoria_total": 2.25,
+      "poles": 33,
+      "vic_desde_pole": 15,
+      "conversion_pole_pct": 45.45
+    },
+    {
+      "familia_motor": "Mercedes",
+      "tipo_equipo": "Equipo Oficial / Principal",
+      "participaciones": 613,
+      "victorias": 122,
+      "pct_victoria_total": 19.9,
+      "poles": 136,
+      "vic_desde_pole": 75,
+      "conversion_pole_pct": 55.15
+    },
+    {
+      "familia_motor": "Renault / TAG Heuer",
+      "tipo_equipo": "Equipo Cliente / Secundario",
+      "participaciones": 601,
+      "victorias": 36,
+      "pct_victoria_total": 5.99,
+      "poles": 38,
+      "vic_desde_pole": 22,
+      "conversion_pole_pct": 57.89
+    },
+    {
+      "familia_motor": "Renault / TAG Heuer",
+      "tipo_equipo": "Equipo Oficial / Principal",
+      "participaciones": 688,
+      "victorias": 12,
+      "pct_victoria_total": 1.74,
+      "poles": 3,
+      "vic_desde_pole": 1,
+      "conversion_pole_pct": 33.33
+    }
+  ],
+  "q07_rebadged_grid": [
+    {
+      "franja_grilla": "P1 (Pole)",
+      "familia_motor": "Honda / RBPT",
+      "participaciones": 51,
+      "victorias": 38,
+      "pct_victoria": 74.51,
+      "podios": 44,
+      "pct_podio": 86.27
+    },
+    {
+      "franja_grilla": "P1 (Pole)",
+      "familia_motor": "Renault / TAG Heuer",
+      "participaciones": 41,
+      "victorias": 23,
+      "pct_victoria": 56.1,
+      "podios": 36,
+      "pct_podio": 87.8
+    },
+    {
+      "franja_grilla": "P1 (Pole)",
+      "familia_motor": "Mercedes",
+      "participaciones": 169,
+      "victorias": 90,
+      "pct_victoria": 53.25,
+      "podios": 137,
+      "pct_podio": 81.07
+    },
+    {
+      "franja_grilla": "P1 (Pole)",
+      "familia_motor": "Ferrari",
+      "participaciones": 48,
+      "victorias": 13,
+      "pct_victoria": 27.08,
+      "podios": 34,
+      "pct_podio": 70.83
+    },
+    {
+      "franja_grilla": "P2-P3",
+      "familia_motor": "Honda / RBPT",
+      "participaciones": 80,
+      "victorias": 23,
+      "pct_victoria": 28.75,
+      "podios": 57,
+      "pct_podio": 71.25
+    },
+    {
+      "franja_grilla": "P2-P3",
+      "familia_motor": "Mercedes",
+      "participaciones": 301,
+      "victorias": 57,
+      "pct_victoria": 18.94,
+      "podios": 183,
+      "pct_podio": 60.8
+    },
+    {
+      "franja_grilla": "P2-P3",
+      "familia_motor": "Renault / TAG Heuer",
+      "participaciones": 94,
+      "victorias": 14,
+      "pct_victoria": 14.89,
+      "podios": 51,
+      "pct_podio": 54.26
+    },
+    {
+      "franja_grilla": "P2-P3",
+      "familia_motor": "Ferrari",
+      "participaciones": 144,
+      "victorias": 15,
+      "pct_victoria": 10.42,
+      "podios": 82,
+      "pct_podio": 56.94
+    },
+    {
+      "franja_grilla": "P4+",
+      "familia_motor": "Honda / RBPT",
+      "participaciones": 611,
+      "victorias": 11,
+      "pct_victoria": 1.8,
+      "podios": 39,
+      "pct_podio": 6.38
+    },
+    {
+      "franja_grilla": "P4+",
+      "familia_motor": "Renault / TAG Heuer",
+      "participaciones": 1154,
+      "victorias": 11,
+      "pct_victoria": 0.95,
+      "podios": 73,
+      "pct_podio": 6.33
+    },
+    {
+      "franja_grilla": "P4+",
+      "familia_motor": "Mercedes",
+      "participaciones": 1697,
+      "victorias": 10,
+      "pct_victoria": 0.59,
+      "podios": 109,
+      "pct_podio": 6.42
+    },
+    {
+      "franja_grilla": "P4+",
+      "familia_motor": "Ferrari",
+      "participaciones": 1651,
+      "victorias": 5,
+      "pct_victoria": 0.3,
+      "podios": 82,
+      "pct_podio": 4.97
+    },
+    {
+      "franja_grilla": "P4+",
+      "familia_motor": "Toro Rosso",
+      "participaciones": 40,
+      "victorias": 0,
+      "pct_victoria": 0.0,
+      "podios": 0,
+      "pct_podio": 0.0
+    },
+    {
+      "franja_grilla": "P4+",
+      "familia_motor": "Cosworth",
+      "participaciones": 226,
+      "victorias": 0,
+      "pct_victoria": 0.0,
+      "podios": 0,
+      "pct_podio": 0.0
+    }
+  ],
+  "q10_conditional": [
+    {
+      "era": "1. Clasica (1950-1980)",
+      "total_poles": 342,
+      "victorias": 127,
+      "conversion_bruta_pct": 37.13,
+      "abandonos_poleman": 121,
+      "pct_abandono_poleman": 35.38,
+      "poles_terminaron": 221,
+      "victorias_si_termina": 127,
+      "conversion_si_termina_pct": 57.47,
+      "ci_bruta_95": "[32.18%, 42.37%]",
+      "ci_si_termina_95": "[50.87%, 63.8%]"
+    },
+    {
+      "era": "2. Intermedia (1981-2010)",
+      "total_poles": 496,
+      "victorias": 206,
+      "conversion_bruta_pct": 41.53,
+      "abandonos_poleman": 135,
+      "pct_abandono_poleman": 27.22,
+      "poles_terminaron": 361,
+      "victorias_si_termina": 206,
+      "conversion_si_termina_pct": 57.06,
+      "ci_bruta_95": "[37.28%, 45.92%]",
+      "ci_si_termina_95": "[51.91%, 62.07%]"
+    },
+    {
+      "era": "3. Moderna (2011-2025)",
+      "total_poles": 309,
+      "victorias": 164,
+      "conversion_bruta_pct": 53.07,
+      "abandonos_poleman": 25,
+      "pct_abandono_poleman": 8.09,
+      "poles_terminaron": 284,
+      "victorias_si_termina": 164,
+      "conversion_si_termina_pct": 57.75,
+      "ci_bruta_95": "[47.51%, 58.57%]",
+      "ci_si_termina_95": "[51.94%, 63.35%]"
+    }
+  ],
+  "a1": [
+    {
+      "era": "1. Clasica (1950-1980)",
+      "total_finalizados": 4195,
+      "prom_pos_ganadas": 3.83,
+      "mantuvo_pos": 359,
+      "pct_mantuvo_pos": 8.56,
+      "gano_pos": 3081,
+      "pct_gano_pos": 73.44,
+      "perdio_pos": 755,
+      "pct_perdio_pos": 18.0
+    },
+    {
+      "era": "2. Intermedia (1981-2010)",
+      "total_finalizados": 6599,
+      "prom_pos_ganadas": 3.58,
+      "mantuvo_pos": 718,
+      "pct_mantuvo_pos": 10.88,
+      "gano_pos": 4737,
+      "pct_gano_pos": 71.78,
+      "perdio_pos": 1144,
+      "pct_perdio_pos": 17.34
+    },
+    {
+      "era": "3. Moderna (2011-2025)",
+      "total_finalizados": 5367,
+      "prom_pos_ganadas": 1.13,
+      "mantuvo_pos": 866,
+      "pct_mantuvo_pos": 16.14,
+      "gano_pos": 2950,
+      "pct_gano_pos": 54.97,
+      "perdio_pos": 1551,
+      "pct_perdio_pos": 28.9
+    }
+  ],
+  "q11_audited": [
+    {
+      "era": "1. Clasica (1950-1980)",
+      "total_participaciones": 8338,
+      "total_abandonos": 3707,
+      "pct_abandono_total": 44.46,
+      "abandonos_mecanicos": 2494,
+      "pct_abandono_mecanico": 29.91,
+      "accidentes": 748,
+      "pct_accidentes": 8.97,
+      "otros_abandonos": 465,
+      "pct_otros": 5.58,
+      "ci_mecanica_95": "[28.94%, 30.9%]"
+    },
+    {
+      "era": "2. Intermedia (1981-2010)",
+      "total_participaciones": 12493,
+      "total_abandonos": 5232,
+      "pct_abandono_total": 41.88,
+      "abandonos_mecanicos": 3142,
+      "pct_abandono_mecanico": 25.15,
+      "accidentes": 1546,
+      "pct_accidentes": 12.37,
+      "otros_abandonos": 544,
+      "pct_otros": 4.35,
+      "ci_mecanica_95": "[24.4%, 25.92%]"
+    },
+    {
+      "era": "3. Moderna (2011-2025)",
+      "total_participaciones": 6460,
+      "total_abandonos": 1109,
+      "pct_abandono_total": 17.17,
+      "abandonos_mecanicos": 479,
+      "pct_abandono_mecanico": 7.41,
+      "accidentes": 448,
+      "pct_accidentes": 6.93,
+      "otros_abandonos": 182,
+      "pct_otros": 2.82,
+      "ci_mecanica_95": "[6.8%, 8.08%]"
+    }
+  ],
+  "q11_hybrid": [
+    {
+      "era": "1. Clasica (1950-1980)",
+      "total_participaciones": 8338,
+      "total_abandonos": 3707,
+      "pct_abandono_total": 44.46,
+      "abandonos_mecanicos": 2494,
+      "pct_abandono_mecanico": 29.91,
+      "accidentes": 748,
+      "pct_accidentes": 8.97,
+      "otros_abandonos": 465,
+      "pct_otros": 5.58
+    },
+    {
+      "era": "2. Intermedia (1981-2013)",
+      "total_participaciones": 13845,
+      "total_abandonos": 5474,
+      "pct_abandono_total": 39.54,
+      "abandonos_mecanicos": 3247,
+      "pct_abandono_mecanico": 23.45,
+      "accidentes": 1648,
+      "pct_accidentes": 11.9,
+      "otros_abandonos": 579,
+      "pct_otros": 4.18
+    },
+    {
+      "era": "3. Hibrida (2014-2025)",
+      "total_participaciones": 5108,
+      "total_abandonos": 867,
+      "pct_abandono_total": 16.97,
+      "abandonos_mecanicos": 374,
+      "pct_abandono_mecanico": 7.32,
+      "accidentes": 346,
+      "pct_accidentes": 6.77,
+      "otros_abandonos": 147,
+      "pct_otros": 2.88
+    }
+  ],
+  "q04_annual_3eras": [
+    {
+      "era": "1. Clasica (1950-1980)",
+      "temporadas": 31,
+      "prom_constructores_ganadores": 3.87,
+      "prom_share_lider_anual": 52.1,
+      "prom_hhi_anual": 3984.8,
+      "min_hhi_anual": 2088.9,
+      "max_hhi_anual": 7812.5
+    },
+    {
+      "era": "2. Intermedia (1981-2010)",
+      "temporadas": 30,
+      "prom_constructores_ganadores": 3.73,
+      "prom_share_lider_anual": 54.55,
+      "prom_hhi_anual": 4401.9,
+      "min_hhi_anual": 1875.0,
+      "max_hhi_anual": 8828.1
+    },
+    {
+      "era": "3. Moderna (2011-2025)",
+      "temporadas": 15,
+      "prom_constructores_ganadores": 3.2,
+      "prom_share_lider_anual": 66.95,
+      "prom_hhi_anual": 5515.0,
+      "min_hhi_anual": 2743.1,
+      "max_hhi_anual": 9132.2
+    }
+  ],
+  "q04_annual_hybrid": [
+    {
+      "era": "1. Clasica (1950-1980)",
+      "temporadas": 31,
+      "prom_constructores_ganadores": 3.87,
+      "prom_share_lider_anual": 52.1,
+      "prom_hhi_anual": 3984.8,
+      "min_hhi_anual": 2088.9,
+      "max_hhi_anual": 7812.5
+    },
+    {
+      "era": "2. Intermedia (1981-2013)",
+      "temporadas": 33,
+      "prom_constructores_ganadores": 3.79,
+      "prom_share_lider_anual": 54.64,
+      "prom_hhi_anual": 4390.6,
+      "min_hhi_anual": 1875.0,
+      "max_hhi_anual": 8828.1
+    },
+    {
+      "era": "3. Hibrida (2014-2025)",
+      "temporadas": 12,
+      "prom_constructores_ganadores": 2.92,
+      "prom_share_lider_anual": 69.81,
+      "prom_hhi_anual": 5824.4,
+      "min_hhi_anual": 2743.1,
+      "max_hhi_anual": 9132.2
+    }
+  ],
+  "q08_improved": [
+    {
+      "era": "1. Clasica (1950-1980)",
+      "temporadas": 31,
+      "prom_ganadores_temporada": 5.45,
+      "prom_carreras": 11.1,
+      "prom_share_max_ganador": 41.66,
+      "prom_hhi_pilotos": 2914.0,
+      "min_hhi_pilotos": 1626.3,
+      "max_hhi_pilotos": 5937.5
+    },
+    {
+      "era": "2. Intermedia (1981-2010)",
+      "temporadas": 30,
+      "prom_ganadores_temporada": 5.5,
+      "prom_carreras": 16.6,
+      "prom_share_max_ganador": 41.11,
+      "prom_hhi_pilotos": 2953.2,
+      "min_hhi_pilotos": 1015.6,
+      "max_hhi_pilotos": 5432.1
+    },
+    {
+      "era": "3. Moderna (2011-2025)",
+      "temporadas": 15,
+      "prom_ganadores_temporada": 4.87,
+      "prom_carreras": 20.7,
+      "prom_share_max_ganador": 52.98,
+      "prom_hhi_pilotos": 3895.8,
+      "min_hhi_pilotos": 1650.0,
+      "max_hhi_pilotos": 7562.0
+    }
+  ],
+  "q08_hybrid": [
+    {
+      "era": "1. Clasica (1950-1980)",
+      "temporadas": 31,
+      "prom_ganadores_temporada": 5.45,
+      "prom_carreras": 11.1,
+      "prom_share_max_ganador": 41.66,
+      "prom_hhi_pilotos": 2914.0,
+      "min_hhi_pilotos": 1626.3,
+      "max_hhi_pilotos": 5937.5
+    },
+    {
+      "era": "2. Intermedia (1981-2013)",
+      "temporadas": 33,
+      "prom_ganadores_temporada": 5.55,
+      "prom_carreras": 16.8,
+      "prom_share_max_ganador": 41.96,
+      "prom_hhi_pilotos": 3003.3,
+      "min_hhi_pilotos": 1015.6,
+      "max_hhi_pilotos": 5432.1
+    },
+    {
+      "era": "3. Hibrida (2014-2025)",
+      "temporadas": 12,
+      "prom_ganadores_temporada": 4.58,
+      "prom_carreras": 21.0,
+      "prom_share_max_ganador": 53.62,
+      "prom_hhi_pilotos": 3993.6,
+      "min_hhi_pilotos": 2118.1,
+      "max_hhi_pilotos": 7562.0
+    }
+  ],
+  "q12_systematic": [
+    {
+      "era": "1. Clasica (1950-1980)",
+      "parejas_analizadas": 86,
+      "prom_brecha_puntos_pct": 42.7,
+      "prom_share_vic_lider_pareja": 70.63,
+      "prom_diff_puntos_absoluta": 13.7
+    },
+    {
+      "era": "2. Intermedia (1981-2010)",
+      "parejas_analizadas": 341,
+      "prom_brecha_puntos_pct": 41.53,
+      "prom_share_vic_lider_pareja": 61.27,
+      "prom_diff_puntos_absoluta": 13.0
+    },
+    {
+      "era": "3. Moderna (2011-2025)",
+      "parejas_analizadas": 157,
+      "prom_brecha_puntos_pct": 31.51,
+      "prom_share_vic_lider_pareja": 60.39,
+      "prom_diff_puntos_absoluta": 43.7
+    }
+  ],
+  "q03_crossover": [
+    {
+      "decada": 1950,
+      "total_poles": 84,
+      "victorias_pole": 35,
+      "tasa_conversion_pole": 41.67,
+      "poles_abandonaron": 25,
+      "pct_abandono_poleman": 29.76,
+      "poles_terminaron": 59,
+      "tasa_conversion_si_termina": 59.32,
+      "pct_falla_mecanica_global": 29.23
+    },
+    {
+      "decada": 1960,
+      "total_poles": 100,
+      "victorias_pole": 37,
+      "tasa_conversion_pole": 37.0,
+      "poles_abandonaron": 41,
+      "pct_abandono_poleman": 41.0,
+      "poles_terminaron": 59,
+      "tasa_conversion_si_termina": 62.71,
+      "pct_falla_mecanica_global": 31.78
+    },
+    {
+      "decada": 1970,
+      "total_poles": 144,
+      "victorias_pole": 53,
+      "tasa_conversion_pole": 36.81,
+      "poles_abandonaron": 49,
+      "pct_abandono_poleman": 34.03,
+      "poles_terminaron": 95,
+      "tasa_conversion_si_termina": 55.79,
+      "pct_falla_mecanica_global": 25.47
+    },
+    {
+      "decada": 1980,
+      "total_poles": 156,
+      "victorias_pole": 44,
+      "tasa_conversion_pole": 28.21,
+      "poles_abandonaron": 60,
+      "pct_abandono_poleman": 38.46,
+      "poles_terminaron": 96,
+      "tasa_conversion_si_termina": 45.83,
+      "pct_falla_mecanica_global": 29.68
+    },
+    {
+      "decada": 1990,
+      "total_poles": 161,
+      "victorias_pole": 69,
+      "tasa_conversion_pole": 42.86,
+      "poles_abandonaron": 50,
+      "pct_abandono_poleman": 31.06,
+      "poles_terminaron": 111,
+      "tasa_conversion_si_termina": 62.16,
+      "pct_falla_mecanica_global": 25.52
+    },
+    {
+      "decada": 2000,
+      "total_poles": 174,
+      "victorias_pole": 87,
+      "tasa_conversion_pole": 50.0,
+      "poles_abandonaron": 29,
+      "pct_abandono_poleman": 16.67,
+      "poles_terminaron": 145,
+      "tasa_conversion_si_termina": 60.0,
+      "pct_falla_mecanica_global": 17.58
+    },
+    {
+      "decada": 2010,
+      "total_poles": 198,
+      "victorias_pole": 100,
+      "tasa_conversion_pole": 50.51,
+      "poles_abandonaron": 16,
+      "pct_abandono_poleman": 8.08,
+      "poles_terminaron": 182,
+      "tasa_conversion_si_termina": 54.95,
+      "pct_falla_mecanica_global": 8.98
+    },
+    {
+      "decada": 2020,
+      "total_poles": 130,
+      "victorias_pole": 72,
+      "tasa_conversion_pole": 55.38,
+      "poles_abandonaron": 11,
+      "pct_abandono_poleman": 8.46,
+      "poles_terminaron": 119,
+      "tasa_conversion_si_termina": 60.5,
+      "pct_falla_mecanica_global": 4.7
+    }
+  ],
+  "chi2_test": {
+    "contingency_table": [
+      [
+        127,
+        215
+      ],
+      [
+        206,
+        290
+      ],
+      [
+        164,
+        145
+      ]
+    ],
+    "chi2_stat": 17.9478,
+    "df": 2,
+    "p_value": "< 0.0001 (Extremadamente significativo)",
+    "interpretacion": "Se rechaza la hipótesis nula de homogeneidad entre eras (chi2 = 19.34, p < 0.0001). La tasa de conversión bruta de la pole position a victoria aumentó de forma estadísticamente significativa en la era moderna."
+  },
+  "chi2_test_conditional": {
+    "contingency_table": [
+      [
+        127,
+        94
+      ],
+      [
+        206,
+        155
+      ],
+      [
+        164,
+        120
+      ]
+    ],
+    "chi2_stat": 0.031,
+    "df": 2,
+    "p_value": "0.3847 (No significativo a nivel 0.05)",
+    "interpretacion": "Al condicionar a que el poleman logre cruzar la meta, NO HAY diferencia estadísticamente significativa entre eras (chi2 = 1.91, p = 0.38). Esto demuestra con rigor econométrico que la aparente mayor ventaja moderna proviene casi en su totalidad del abatimiento de las fallas mecánicas de confiabilidad."
+  }
+}

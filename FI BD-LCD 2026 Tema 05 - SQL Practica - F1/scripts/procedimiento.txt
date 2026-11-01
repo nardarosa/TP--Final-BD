@@ -1,0 +1,20 @@
+Sitio oficial: https://github.com/f1db/f1db
+
+Base de datos Formula1
+
+- Crear en la base postgres un nuevo esquema formula1.
+
+-- PARA CORRER TODO JUNTO
+- Ejecutar cargar_todo.bat
+
+-- PARA HACERLO DE A UNO
+- Ejecutar cada script sql de la carpeta scripts, respetando la numeracion.
+     Crear un Nuevo script SQL   
+     Para cada ejecución: Ir al Menú Editor SQL, Importar script SQL.
+	 Ejecutar con ALT-X (Ejecutar - Ejecutar script SQL)
+     Se puede chequear cada ejecución con el archivo manifest.csv 
+
+-- CHEQUEO
+- Ejecutar verificar_tablas.sql. muestra la cantidad de registros por tabla.
+
+- Compararlo con los totales de README.txt

@@ -1,0 +1,50 @@
+[
+  {
+    "variable": "Intercept",
+    "coef": -4.6525,
+    "std_err": 0.0733,
+    "z_stat": -63.47,
+    "p_value": "< 0.0001",
+    "odds_ratio": 0.01
+  },
+  {
+    "variable": "Pole Position (P1)",
+    "coef": 3.711,
+    "std_err": 0.1019,
+    "z_stat": 36.4,
+    "p_value": "< 0.0001",
+    "odds_ratio": 40.89
+  },
+  {
+    "variable": "Grilla P2-P3",
+    "coef": 2.632,
+    "std_err": 0.0902,
+    "z_stat": 29.19,
+    "p_value": "< 0.0001",
+    "odds_ratio": 13.9
+  },
+  {
+    "variable": "Era Moderna (2011+)",
+    "coef": -0.465,
+    "std_err": 0.1022,
+    "z_stat": -4.55,
+    "p_value": "< 0.0001",
+    "odds_ratio": 0.63
+  },
+  {
+    "variable": "Top Team (Constructor L\u00edder)",
+    "coef": 0.6917,
+    "std_err": 0.168,
+    "z_stat": 4.12,
+    "p_value": "< 0.0001",
+    "odds_ratio": 2.0
+  },
+  {
+    "variable": "Interacci\u00f3n: Pole \u00d7 Era Moderna",
+    "coef": 0.8406,
+    "std_err": 0.0811,
+    "z_stat": 10.36,
+    "p_value": "< 0.0001",
+    "odds_ratio": 2.32
+  }
+]

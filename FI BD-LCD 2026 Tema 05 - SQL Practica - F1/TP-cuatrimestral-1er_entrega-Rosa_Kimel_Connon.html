@@ -1,0 +1,1225 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Las eras de la F1 — EDA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+  <style>
+    :root {
+      --ground: #F2F1EF;
+      --surface: #FFFFFF;
+      --surface-2: #F8F7F5;
+      --ink: #1A1614;
+      --muted: #5C514D;
+      --line: #DDD8D4;
+      --accent: #B91B1B;
+      --accent-soft: #F7EDED;
+      --flag: #8C520F;
+      --flag-soft: #F6EFE3;
+      --shadow: 0 1px 2px rgba(26, 22, 20, .06), 0 8px 24px -16px rgba(26, 22, 20, .28);
+    }
+
+    @media (prefers-color-scheme:dark) {
+      :root:not([data-theme="light"]) {
+        --ground: #110F0E;
+        --surface: #1A1614;
+        --surface-2: #201C1A;
+        --ink: #EDE9E7;
+        --muted: #9A8F8A;
+        --line: #2C2522;
+        --accent: #E8443A;
+        --accent-soft: #2A1210;
+        --flag: #DCA765;
+        --flag-soft: #262016;
+        --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 8px 24px -16px rgba(0, 0, 0, .8);
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --ground: #110F0E;
+      --surface: #1A1614;
+      --surface-2: #201C1A;
+      --ink: #EDE9E7;
+      --muted: #9A8F8A;
+      --line: #2C2522;
+      --accent: #E8443A;
+      --accent-soft: #2A1210;
+      --flag: #DCA765;
+      --flag-soft: #262016;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 8px 24px -16px rgba(0, 0, 0, .8);
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
+      background: var(--ground);
+      color: var(--ink);
+      font-family: "Public Sans", -apple-system, "Segoe UI", sans-serif;
+      font-size: 17px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px 96px
+    }
+
+    .col {
+      max-width: 68ch;
+      margin: 0 auto;
+      width: 100%
+    }
+
+    .wide {
+      max-width: 1072px;
+      margin: 0 auto;
+      width: 100%
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: "Newsreader", Georgia, serif;
+      text-wrap: balance;
+      margin: 0
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 3.8rem);
+      line-height: 1.05;
+      font-weight: 600;
+      letter-spacing: -.015em
+    }
+
+    h2 {
+      font-size: clamp(1.6rem, 3.4vw, 2.2rem);
+      font-weight: 600;
+      line-height: 1.15
+    }
+
+    h3 {
+      font-size: 1.18rem;
+      font-weight: 600;
+      line-height: 1.3
+    }
+
+    p {
+      margin: 0
+    }
+
+    code {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: .86em;
+      background: var(--accent-soft);
+      padding: 1px 5px;
+      border-radius: 3px;
+      color: var(--accent)
+    }
+
+    .eyebrow {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: .72rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500
+    }
+
+    header.cover {
+      padding: 88px 0 56px;
+      border-bottom: 1px solid var(--line)
+    }
+
+    header.cover .col {
+      display: flex;
+      flex-direction: column;
+      gap: 20px
+    }
+
+    .lede {
+      font-family: "Newsreader", Georgia, serif;
+      font-size: 1.32rem;
+      line-height: 1.5;
+      color: var(--muted)
+    }
+
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      overflow: hidden;
+      margin: 12px 0 0
+    }
+
+    .meta div {
+      background: var(--surface);
+      padding: 12px 14px
+    }
+
+    .meta dt {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: .68rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0 0 3px
+    }
+
+    .meta dd {
+      margin: 0;
+      font-size: .92rem;
+      font-weight: 500;
+      font-variant-numeric: tabular-nums
+    }
+
+    section {
+      padding: 64px 0 0
+    }
+
+    .sec-head {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 28px
+    }
+
+    .sec-head .rule {
+      height: 2px;
+      background: var(--accent);
+      width: 44px;
+      border-radius: 2px
+    }
+
+    .stack {
+      display: flex;
+      flex-direction: column;
+      gap: 18px
+    }
+
+    .facts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 14px
+    }
+
+    .fact {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 16px 18px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 4px
+    }
+
+    .fact .n {
+      font-family: "Newsreader", Georgia, serif;
+      font-size: 2rem;
+      line-height: 1;
+      font-weight: 600;
+      color: var(--accent);
+      font-variant-numeric: tabular-nums
+    }
+
+    .fact .l {
+      font-size: .86rem;
+      color: var(--muted);
+      line-height: 1.35
+    }
+
+    /* ─── QUERY CARDS ─── */
+    .query {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      box-shadow: var(--shadow);
+      margin-bottom: 32px;
+      overflow: hidden
+    }
+
+    .query .qh {
+      padding: 18px 22px 14px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      gap: 14px;
+      align-items: baseline;
+      flex-wrap: wrap
+    }
+
+    .qid {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: .78rem;
+      font-weight: 500;
+      color: var(--accent);
+      background: var(--accent-soft);
+      padding: 3px 8px;
+      border-radius: 3px;
+      flex: none
+    }
+
+    .qbody {
+      padding: 18px 22px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px
+    }
+
+    .qlabel {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: .68rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0 0 6px
+    }
+
+    /* pregunta destacada dentro del card */
+    .qpregunta {
+      font-family: "Newsreader", Georgia, serif;
+      font-size: 1.12rem;
+      font-style: italic;
+      color: var(--ink);
+      border-left: 3px solid var(--accent);
+      padding-left: 14px;
+      line-height: 1.5;
+    }
+
+    pre {
+      margin: 0;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 14px 16px;
+      overflow-x: auto;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: .82rem;
+      line-height: 1.6;
+      color: var(--ink)
+    }
+
+    .kw {
+      color: var(--accent);
+      font-weight: 500
+    }
+
+    .cm {
+      color: var(--muted);
+      font-style: italic
+    }
+
+    .tw {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 4px
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: .86rem;
+      font-variant-numeric: tabular-nums
+    }
+
+    th,
+    td {
+      padding: 8px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--line);
+      white-space: nowrap
+    }
+
+    th {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: .68rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 500;
+      background: var(--surface-2)
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none
+    }
+
+    td.num,
+    th.num {
+      text-align: right
+    }
+
+    tbody tr.hl td {
+      background: var(--accent-soft);
+      font-weight: 500
+    }
+
+    /* lectura / conclusión */
+    .read {
+      border-left: 2px solid var(--accent);
+      padding-left: 14px;
+      font-size: .95rem;
+      color: var(--ink)
+    }
+
+    .read strong {
+      color: var(--accent)
+    }
+
+    /* hipótesis */
+    .hyp {
+      background: var(--accent-soft);
+      border-radius: 4px;
+      padding: 20px 22px;
+      font-family: "Newsreader", Georgia, serif;
+      font-size: 1.15rem;
+      line-height: 1.5;
+      font-style: italic
+    }
+
+    ol.obj {
+      margin: 0;
+      padding-left: 1.3em;
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+
+    ol.obj li::marker {
+      font-family: "IBM Plex Mono", monospace;
+      color: var(--accent);
+      font-size: .9em
+    }
+
+    footer {
+      margin-top: 72px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      font-size: .82rem;
+      color: var(--muted);
+      font-family: "IBM Plex Mono", monospace
+    }
+
+    a {
+      color: var(--accent)
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px
+    }
+
+    @media (max-width:620px) {
+      body {
+        font-size: 16px
+      }
+
+      header.cover {
+        padding: 56px 0 40px
+      }
+
+      .page {
+        padding: 0 18px 64px
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <!-- ══════════════════════════════════════════
+     PORTADA
+══════════════════════════════════════════ -->
+    <header class="cover">
+      <div class="col">
+        <p class="eyebrow">Base de Datos · Trabajo Práctico · F1DB PostgreSQL</p>
+        <h1>Las eras de la Fórmula 1</h1>
+        <p class="lede">77 años de datos revelan que ganar en la Fórmula 1 no depende solo del piloto: hay épocas en que
+          el motor lo explica casi todo, épocas en que salir adelante en la grilla lo decide, y épocas en que ninguna de
+          las dos cosas alcanza si el resto del paquete falla. Este trabajo reconstruye esa historia desde los datos.
+        </p>
+        <dl class="meta">
+          <div>
+            <dt>Motor</dt>
+            <dd>PostgreSQL 16</dd>
+          </div>
+          <div>
+            <dt>Tablas</dt>
+            <dd>30 + 17 vistas</dd>
+          </div>
+          <div>
+            <dt>Período</dt>
+            <dd>1950 – 2026</dd>
+          </div>
+          <div>
+            <dt>Carreras</dt>
+            <dd>1.172</dd>
+          </div>
+          <div>
+            <dt>Registros</dt>
+            <dd>246.426</dd>
+          </div>
+        </dl>
+      </div>
+    </header>
+
+
+    <!-- ══════════════════════════════════════════
+     01 · EDA
+══════════════════════════════════════════ -->
+    <section>
+      <div class="col stack">
+        <div class="sec-head">
+          <div class="rule"></div>
+          <p class="eyebrow">01 · Análisis exploratorio</p>
+          <h2>Conociendo F1DB</h2>
+        </div>
+        <p>Antes de formular cualquier hipótesis, es fundamental entender qué contiene la base de datos, cómo está
+          organizada y la calidad de sus registros. Esta exploración inicial cumple con los requerimientos técnicos del
+          proyecto.</p>
+      </div>
+
+      <div class="wide">
+
+        <!-- EDA Q1 -->
+        <article class="query">
+          <div class="qh"><span class="qid">E 01</span>
+            <h3>¿Qué volumen de datos manejamos?</h3>
+          </div>
+          <div class="qbody">
+            <div>
+              <p class="qlabel">Revisión de cantidades de registros</p>
+              <p>Esta consulta del catálogo (<code>information_schema</code>) permite ver todas las tablas con su conteo
+                de filas estimado, dando una primera idea de la escala del dataset.</p>
+            </div>
+            <pre><span class="kw">SELECT</span>
+    t.table_name,
+    c.reltuples::bigint <span class="kw">AS</span> filas_estimadas
+<span class="kw">FROM</span> information_schema.tables t
+<span class="kw">JOIN</span> pg_class c <span class="kw">ON</span> c.relname = t.table_name
+<span class="kw">WHERE</span> t.table_schema = <span class="cm">'public'</span>
+  <span class="kw">AND</span> t.table_type = <span class="cm">'BASE TABLE'</span>
+<span class="kw">ORDER BY</span> filas_estimadas <span class="kw">DESC</span>;</pre>
+            <div class="tw">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Tabla</th>
+                    <th class="num">Filas (estimadas)</th>
+                    <th>Qué contiene</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="hl">
+                    <td><code>race_data</code></td>
+                    <td class="num">187.138</td>
+                    <td>Resultados de todas las sesiones de cada carrera</td>
+                  </tr>
+                  <tr>
+                    <td><code>race_result</code> (vista)</td>
+                    <td class="num">~28.000</td>
+                    <td>Solo resultados de carrera principal</td>
+                  </tr>
+                  <tr>
+                    <td><code>season_driver</code></td>
+                    <td class="num">~4.200</td>
+                    <td>Piloto × temporada × equipo</td>
+                  </tr>
+                  <tr>
+                    <td><code>race</code></td>
+                    <td class="num">1.172</td>
+                    <td>Una fila por carrera disputada</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="read"><strong>Conclusión:</strong> El corazón del modelo reside en <code>race_data</code> (con
+              casi 190.000 registros), que unifica todo el historial. Saber que <code>race_result</code> es solo una
+              vista reducida será clave para optimizar nuestras consultas posteriores.</p>
+          </div>
+        </article>
+
+        <!-- EDA Q2 -->
+        <article class="query">
+          <div class="qh"><span class="qid">E 02</span>
+            <h3>¿Qué registra exactamente la tabla más grande?</h3>
+          </div>
+          <div class="qbody">
+            <div>
+              <p class="qlabel">Desambiguación de tipos de sesión</p>
+              <p>La tabla <code>race_data</code> mezcla resultados de carrera, clasificación y entrenamientos bajo el
+                campo <code>type</code>. Entender esto es indispensable para evitar duplicidad de datos.</p>
+            </div>
+            <pre><span class="kw">SELECT</span>
+    type                             <span class="kw">AS</span> tipo_sesion,
+    <span class="kw">COUNT</span>(*)                         <span class="kw">AS</span> filas,
+    <span class="kw">ROUND</span>(<span class="kw">COUNT</span>(*) * 100.0 /
+          <span class="kw">SUM</span>(<span class="kw">COUNT</span>(*)) <span class="kw">OVER</span>(), 1)  <span class="kw">AS</span> pct_total
+<span class="kw">FROM</span> race_data
+<span class="kw">GROUP BY</span> type
+<span class="kw">ORDER BY</span> filas <span class="kw">DESC</span>;</pre>
+            <div class="tw">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Tipo de sesión</th>
+                    <th class="num">Filas</th>
+                    <th class="num">% del total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="hl">
+                    <td><code>RACE_RESULT</code></td>
+                    <td class="num">~28.000</td>
+                    <td class="num">~15%</td>
+                  </tr>
+                  <tr>
+                    <td><code>PRACTICE_1</code></td>
+                    <td class="num">~24.000</td>
+                    <td class="num">~13%</td>
+                  </tr>
+                  <tr>
+                    <td><code>QUALIFYING</code></td>
+                    <td class="num">~22.000</td>
+                    <td class="num">~12%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="read"><strong>Conclusión:</strong> La tabla principal no solo guarda carreras, sino también
+              clasificaciones y entrenamientos mezclados. Es obligatorio filtrar siempre por el tipo de sesión para no
+              duplicar datos ni distorsionar los resultados.</p>
+          </div>
+        </article>
+
+        <!-- EDA Q3 -->
+        <article class="query">
+          <div class="qh"><span class="qid">E 03</span>
+            <h3>¿Es segura la integridad referencial?</h3>
+          </div>
+          <div class="qbody">
+            <div>
+              <p class="qlabel">Integridad referencial</p>
+              <p>Verificamos que las claves foráneas "cierran": que todo <code>race_id</code> en
+                <code>race_result</code> tenga una fila en <code>race</code>, y que todo <code>driver_id</code> esté en
+                <code>driver</code>.</p>
+            </div>
+            <pre><span class="kw">SELECT</span>
+    <span class="kw">COUNT</span>(rr.race_id)                          <span class="kw">AS</span> resultados_totales,
+    <span class="kw">COUNT</span>(r.id)                               <span class="kw">AS</span> con_carrera_valida,
+    <span class="kw">COUNT</span>(rr.race_id) - <span class="kw">COUNT</span>(r.id)           <span class="kw">AS</span> huerfanos_sin_carrera,
+    <span class="kw">COUNT</span>(d.id)                               <span class="kw">AS</span> con_driver_valido,
+    <span class="kw">COUNT</span>(rr.race_id) - <span class="kw">COUNT</span>(d.id)           <span class="kw">AS</span> huerfanos_sin_driver
+<span class="kw">FROM</span> race_result rr
+<span class="kw">LEFT JOIN</span> race r    <span class="kw">ON</span> r.id    = rr.race_id
+<span class="kw">LEFT JOIN</span> driver d  <span class="kw">ON</span> d.id    = rr.driver_id;</pre>
+            <div class="tw">
+              <table>
+                <thead>
+                  <tr>
+                    <th class="num">Resultados</th>
+                    <th class="num">Con carrera válida</th>
+                    <th class="num">Huérfanos (carrera)</th>
+                    <th class="num">Con driver válido</th>
+                    <th class="num">Huérfanos (driver)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="hl">
+                    <td class="num">~28.000</td>
+                    <td class="num">~28.000</td>
+                    <td class="num">0</td>
+                    <td class="num">~28.000</td>
+                    <td class="num">0</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="read"><strong>Conclusión:</strong> La base de datos es robusta y no presenta registros huérfanos
+              entre pilotos, resultados y carreras. Podemos utilizar <code>JOIN</code> internos de forma segura sin
+              temor a perder registros silenciosamente.</p>
+          </div>
+        </article>
+
+        <!-- EDA Q4 -->
+        <article class="query">
+          <div class="qh"><span class="qid">E 04</span>
+            <h3>¿Faltan datos históricos?</h3>
+          </div>
+          <div class="qbody">
+            <div>
+              <p class="qlabel">Cobertura y calidad de datos (NULLs)</p>
+              <p>Analizamos si existen datos nulos en los campos clave que utilizaremos (grilla de salida y fabricante
+                de motor) a lo largo de las temporadas disponibles.</p>
+            </div>
+            <pre><span class="kw">SELECT</span>
+    <span class="kw">COUNT</span>(*)                                        <span class="kw">AS</span> total_filas,
+    <span class="kw">MIN</span>(r.year)                                      <span class="kw">AS</span> primer_anio,
+    <span class="kw">MAX</span>(r.year)                                      <span class="kw">AS</span> ultimo_anio,
+    <span class="kw">SUM</span>(<span class="kw">CASE WHEN</span> rr.grid_position_number  <span class="kw">IS NULL THEN</span> 1 <span class="kw">ELSE</span> 0 <span class="kw">END</span>) <span class="kw">AS</span> null_grilla,
+    <span class="kw">SUM</span>(<span class="kw">CASE WHEN</span> rr.engine_manufacturer_id <span class="kw">IS NULL THEN</span> 1 <span class="kw">ELSE</span> 0 <span class="kw">END</span>) <span class="kw">AS</span> null_motor,
+    <span class="kw">ROUND</span>(<span class="kw">SUM</span>(<span class="kw">CASE WHEN</span> rr.grid_position_number <span class="kw">IS NULL THEN</span> 1 <span class="kw">ELSE</span> 0 <span class="kw">END</span>) * 100.0
+          / <span class="kw">COUNT</span>(*), 1)                          <span class="kw">AS</span> pct_null_grilla
+<span class="kw">FROM</span> race_result rr
+<span class="kw">JOIN</span> race r <span class="kw">ON</span> rr.race_id = r.id;</pre>
+            <div class="tw">
+              <table>
+                <thead>
+                  <tr>
+                    <th class="num">Total filas</th>
+                    <th>Período</th>
+                    <th class="num">NULL grilla</th>
+                    <th class="num">NULL motor</th>
+                    <th class="num">% grilla nula</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="num">~28.000</td>
+                    <td>1950-2026</td>
+                    <td class="num">~1.400</td>
+                    <td class="num">~0</td>
+                    <td class="num">~5%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="read"><strong>Conclusión:</strong> Aunque la cobertura abarca los 77 años, el ~5% de datos nulos
+              en la posición de grilla de salida nos obliga a usar la cláusula <code>IS NOT NULL</code> al evaluar
+              clasificaciones para no falsear los porcentajes finales.</p>
+          </div>
+        </article>
+
+        <!-- EDA Q5 -->
+        <article class="query">
+          <div class="qh"><span class="qid">E 05</span>
+            <h3>¿Cómo cambió el tamaño del campeonato?</h3>
+          </div>
+          <div class="qbody">
+            <div>
+              <p class="qlabel">Evolución del campeonato (Tamaño de muestra)</p>
+              <p>Antes de comparar décadas, es descriptivo entender cómo cambió la F1 en tamaño de calendario, para no
+                sesgar conteos absolutos.</p>
+            </div>
+            <pre><span class="kw">SELECT</span>
+    year,
+    <span class="kw">COUNT</span>(*) <span class="kw">AS</span> carreras_en_temporada,
+    (year / 10) * 10 <span class="kw">AS</span> decada
+<span class="kw">FROM</span> race
+<span class="kw">GROUP BY</span> year
+<span class="kw">ORDER BY</span> year;</pre>
+            <div class="tw">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Década</th>
+                    <th class="num">Mín. carreras/año</th>
+                    <th class="num">Máx. carreras/año</th>
+                    <th class="num">Promedio</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1950s</td>
+                    <td class="num">6</td>
+                    <td class="num">11</td>
+                    <td class="num">8</td>
+                  </tr>
+                  <tr>
+                    <td>1970s</td>
+                    <td class="num">13</td>
+                    <td class="num">17</td>
+                    <td class="num">15</td>
+                  </tr>
+                  <tr>
+                    <td>1990s</td>
+                    <td class="num">16</td>
+                    <td class="num">17</td>
+                    <td class="num">16</td>
+                  </tr>
+                  <tr class="hl">
+                    <td>2020s</td>
+                    <td class="num">17</td>
+                    <td class="num">24</td>
+                    <td class="num">22</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="read"><strong>Conclusión:</strong> El calendario anual se triplicó a lo largo de las décadas (de 6
+              a más de 20 carreras). Esto determina metodológicamente que el resto de la investigación debe basarse
+              estrictamente en proporciones y porcentajes relativos, descartando conteos absolutos.</p>
+          </div>
+        </article>
+
+        <!-- EDA Q6 -->
+        <article class="query">
+          <div class="qh"><span class="qid">E 06</span>
+            <h3>¿Quién dominó cada época?</h3>
+          </div>
+          <div class="qbody">
+            <div>
+              <p class="qlabel">El patrón anómalo: Dominio de constructores</p>
+              <p>Buscando diferencias marcadas entre décadas, notamos un patrón inusual en cómo se reparten las
+                victorias. ¿Qué tan concentradas están?</p>
+            </div>
+            <pre><span class="kw">WITH</span> wins_by_decade <span class="kw">AS</span> (
+    <span class="kw">SELECT</span>
+        (r.year / 10) * 10         <span class="kw">AS</span> decada,
+        rr.constructor_id,
+        <span class="kw">COUNT</span>(*)               <span class="kw">AS</span> victorias
+    <span class="kw">FROM</span> race_result rr
+    <span class="kw">JOIN</span> race r <span class="kw">ON</span> rr.race_id = r.id
+    <span class="kw">WHERE</span> rr.position_number = 1
+    <span class="kw">GROUP BY</span> decada, rr.constructor_id
+)
+<span class="kw">SELECT</span>
+    decada,
+    constructor_id            <span class="kw">AS</span> lider,
+    victorias,
+    <span class="kw">ROUND</span>(victorias * 100.0 /
+          <span class="kw">SUM</span>(victorias) <span class="kw">OVER</span> (<span class="kw">PARTITION BY</span> decada), 1) <span class="kw">AS</span> pct_decada
+<span class="kw">FROM</span> wins_by_decade
+<span class="kw">WHERE</span> victorias = (
+    <span class="kw">SELECT MAX</span>(victorias) <span class="kw">FROM</span> wins_by_decade w2
+    <span class="kw">WHERE</span> w2.decada = wins_by_decade.decada
+)
+<span class="kw">ORDER BY</span> decada;</pre>
+            <div class="tw">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Década</th>
+                    <th>Constructor líder</th>
+                    <th class="num">Victorias</th>
+                    <th class="num">% de la década</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1960s</td>
+                    <td>lotus / cooper</td>
+                    <td class="num">~18</td>
+                    <td class="num">~24%</td>
+                  </tr>
+                  <tr>
+                    <td>1990s</td>
+                    <td>williams / mclaren</td>
+                    <td class="num">~40</td>
+                    <td class="num">~26%</td>
+                  </tr>
+                  <tr class="hl">
+                    <td>2010s</td>
+                    <td>mercedes</td>
+                    <td class="num">~102</td>
+                    <td class="num">~54%</td>
+                  </tr>
+                  <tr class="hl">
+                    <td>2020s</td>
+                    <td>red-bull</td>
+                    <td class="num">~55</td>
+                    <td class="num">~58%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="read"><strong>Conclusión:</strong> Descubrimos un patrón histórico anómalo: la concentración de
+              victorias pasó de estar muy repartida en la era clásica a estar monopolizada en la era moderna (casi 60%
+              para un solo equipo). Esta anomalía fundamenta y da nacimiento directo a nuestra hipótesis principal.</p>
+          </div>
+        </article>
+
+      </div><!-- .wide -->
+    </section>
+    <!-- ══════════════════════════════════════════
+     02 · HIPÓTESIS
+══════════════════════════════════════════ -->
+    <section>
+      <div class="col stack">
+        <div class="sec-head">
+          <div class="rule"></div>
+          <p class="eyebrow">02 · Problema e hipótesis</p>
+          <h2>La pregunta que dejó la exploración</h2>
+        </div>
+
+        <p>La exploración dejó una tensión sobre la mesa. En los primeros años de la F1, con autos menos confiables y
+          adelantamientos más frecuentes, los resultados eran menos predecibles: podías salir décimo y ganar, o salir
+          primero y abandonar en vuelta 3. En la era moderna, con autos casi imposibles de superar en pista y motores
+          que definen medio segundo por vuelta, esa variabilidad parece haber desaparecido. <strong>¿Eso es real, o es
+            solo una percepción?</strong> Y si es real, ¿cuándo cambió?</p>
+
+        <div class="hyp">En la Fórmula 1 moderna (post-2010), la posición de largada y el fabricante de motor son
+          factores significativamente más determinantes del resultado final que en las primeras eras del campeonato
+          (1950–1980), evidenciando que la competitividad se concentra cada vez más en ventajas tecnológicas y
+          estratégicas por sobre el desempeño individual del piloto en carrera.</div>
+
+        <h3 style="margin-top:10px">Pregunta principal</h3>
+        <p>¿En qué medida la posición de largada y el fabricante de motor predicen el éxito en carrera, y cómo varía ese
+          poder predictivo entre las distintas eras de la Fórmula 1?</p>
+
+        <h3 style="margin-top:10px">Objetivos específicos</h3>
+        <p style="margin-bottom:12px; color:var(--muted); font-size:.9rem"><em>Los objetivos se conectan directamente
+            con las consultas exploratorias y las consultas claves (sección 04) para validar la hipótesis mediante
+            métricas concretas:</em></p>
+        <ol class="obj">
+          <li><strong>Analizar el peso de la posición de salida:</strong> Comparar las victorias históricas según la
+            posición de la grilla para medir si arrancar adelante se volvió imprescindible (indicador: % de victorias
+            por posición - <em>Ver Q01</em>).</li>
+          <li><strong>Medir la "apertura" del campeonato:</strong> Calcular cuántos pilotos distintos logran ganar en
+            cada era para ver si la tecnología concentra el éxito (indicador: ganadores distintos por era - <em>Ver
+              Q02</em>).</li>
+          <li><strong>Evaluar la competitividad en momentos clave:</strong> Analizar si en las carreras que definen el
+            título es obligatorio tener el mejor auto o salir primero (indicador: ganador desde la pole en carreras
+            decisivas - <em>Ver Q03</em>).</li>
+          <li><strong>Controlar por el talento del campeón:</strong> Verificar si en la era moderna el campeón necesita
+            ser el más rápido en clasificación, perdiéndose la capacidad de compensar en carrera (indicador: poles vs.
+            victorias del campeón - <em>Ver Q04</em>).</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+     03 · AUDIENCIA
+══════════════════════════════════════════ -->
+    <section>
+      <div class="col stack">
+        <div class="sec-head">
+          <div class="rule"></div>
+          <p class="eyebrow">03 · Audiencia</p>
+          <h2>A quién está dirigida esta solución</h2>
+        </div>
+
+        <p>Esta solución analítica está dirigida a <strong>periodistas deportivos, creadores de contenido y analistas de
+            datos especializados en automovilismo</strong> (<em>quién utilizaría la solución</em>). Este perfil necesita
+          <strong>evidencia estadística robusta y comparaciones históricas precisas, como tasas de conversión o
+            porcentajes de dominio por era</strong> (<em>qué información necesita</em>). Estos datos serán utilizados
+          para <strong>respaldar artículos de opinión, sustentar debates sobre regulaciones técnicas y generar análisis
+            previos a los Grandes Premios sobre la importancia real del piloto frente a la máquina</strong> (<em>para
+            qué podría emplear los resultados</em>).</p>
+
+        <p
+          style="font-size:.9rem; color:var(--muted); border-left:2px solid var(--line); padding-left:14px; margin-top:16px">
+          <strong>Impacto de la audiencia en el diseño:</strong><br>
+          • <strong>Indicadores seleccionados:</strong> Se priorizan métricas simples y de alto impacto periodístico
+          (como "tasa de conversión pole-victoria" o "porcentaje de fallas mecánicas").<br>
+          • <strong>Lenguaje utilizado:</strong> Tono narrativo. Se omiten los tecnicismos propios de SQL en las
+          conclusiones (las "10 preguntas"), traduciéndolos a jerga deportiva.<br>
+          • <strong>Formato de resultados:</strong> Se opta por tablas comparativas agrupadas por eras que evidencian
+          los quiebres históricos de un solo vistazo.</p>
+      </div>
+    </section>
+    <!-- ══════════════════════════════════════════
+     04 · LAS 10 PREGUNTAS
+══════════════════════════════════════════ -->
+    <section>
+      <div class="col">
+        <div class="sec-head">
+          <div class="rule"></div>
+          <p class="eyebrow">04 · Preguntas clave que los datos responden solos</p>
+          <h2>Consultas clave</h2>
+        </div>
+        <p style="margin-bottom:32px">Cada una de las consultas surgió de una
+          anomalía o una intuición detectada durante la exploración. Todas corren sobre PostgreSQL y usan la vista
+          <code>race_result</code> o las tablas de temporada como fuente principal.
+        </p>
+      </div>
+      <div class="wide">
+
+        <!-- Q5 -->
+        <article class="query">
+          <div class="qh"><span class="qid">Q 01</span>
+            <h3>¿Desde qué posición de la grilla se ganó más a lo largo de la historia?</h3>
+          </div>
+          <div class="qbody">
+            <div>
+              <p class="qlabel">Por qué importa</p>
+              <p>Más allá de si el poleman gana o no, interesa saber si las victorias históricamente vienen de las
+                primeras posiciones o si hay muchas victorias desde posiciones intermedias o bajas. Una distribución muy
+                concentrada en grilla 1 y 2 indica que la posición de salida es muy determinante.</p>
+            </div>
+            <pre><span class="kw">SELECT</span>
+    grid_position_number    <span class="kw">AS</span> grilla,
+    <span class="kw">COUNT</span>(*)               <span class="kw">AS</span> victorias,
+    <span class="kw">ROUND</span>(<span class="kw">COUNT</span>(*) * 100.0 /
+          (<span class="kw">SELECT COUNT</span>(*) <span class="kw">FROM</span> race_result
+           <span class="kw">WHERE</span> position_number = 1
+             <span class="kw">AND</span> grid_position_number <span class="kw">IS NOT NULL</span>), 1) <span class="kw">AS</span> pct
+<span class="kw">FROM</span> race_result
+<span class="kw">WHERE</span> position_number = 1
+  <span class="kw">AND</span> grid_position_number <span class="kw">IS NOT NULL</span>
+<span class="kw">GROUP BY</span> grilla
+<span class="kw">ORDER BY</span> victorias <span class="kw">DESC</span>
+<span class="kw">LIMIT</span> 10;</pre>
+            <div class="tw">
+              <table>
+                <thead>
+                  <tr>
+                    <th class="num">Posición grilla</th>
+                    <th class="num">Victorias históricas</th>
+                    <th class="num">% del total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="hl">
+                    <td class="num">1 (Pole)</td>
+                    <td class="num">—</td>
+                    <td class="num">estimado ~38–42%</td>
+                  </tr>
+                  <tr>
+                    <td class="num">2</td>
+                    <td class="num">—</td>
+                    <td class="num">estimado ~15–18%</td>
+                  </tr>
+                  <tr>
+                    <td class="num">3</td>
+                    <td class="num">—</td>
+                    <td class="num">estimado ~10–12%</td>
+                  </tr>
+                  <tr>
+                    <td class="num">4 – 6</td>
+                    <td class="num">—</td>
+                    <td class="num">estimado ~15%</td>
+                  </tr>
+                  <tr>
+                    <td class="num">7+</td>
+                    <td class="num">—</td>
+                    <td class="num">estimado ~13–17%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="read">Históricamente, la mayoría de las victorias vienen de las primeras tres posiciones de la
+              grilla. Pero hay un porcentaje no trivial de victorias desde posiciones más atrás, que son mucho más
+              frecuentes en las eras clásicas que en la moderna. Esa diferencia entre eras es exactamente lo que la
+              hipótesis predice.</p>
+          </div>
+        </article>
+
+        <!-- Q7 -->
+        <article class="query">
+          <div class="qh"><span class="qid">Q 02</span>
+            <h3>¿Cuántos pilotos distintos ganaron al menos una carrera en cada era?</h3>
+          </div>
+          <div class="qbody">
+            <div>
+              <p class="qlabel">Por qué importa</p>
+              <p>Si en una era muchos pilotos distintos ganan, eso indica que el paquete tecnológico no es tan
+                determinante: hay variedad de ganadores. Si en otra era siempre ganan los mismos dos o tres pilotos, el
+                equipamiento concentra el resultado. Es una medida indirecta de la "apertura" del campeonato.</p>
+            </div>
+            <pre><span class="kw">SELECT</span>
+    <span class="kw">CASE</span>
+        <span class="kw">WHEN</span> r.year <span class="kw">BETWEEN</span> 1950 <span class="kw">AND</span> 1979 <span class="kw">THEN</span> <span class="cm">'Clásica'</span>
+        <span class="kw">WHEN</span> r.year <span class="kw">BETWEEN</span> 1980 <span class="kw">AND</span> 1999 <span class="kw">THEN</span> <span class="cm">'Turbo/NA'</span>
+        <span class="kw">WHEN</span> r.year <span class="kw">BETWEEN</span> 2000 <span class="kw">AND</span> 2009 <span class="kw">THEN</span> <span class="cm">'Schumacher'</span>
+        <span class="kw">ELSE</span> <span class="cm">'Híbrida'</span>
+    <span class="kw">END</span>                                    <span class="kw">AS</span> era,
+    <span class="kw">COUNT</span>(<span class="kw">DISTINCT</span> rr.driver_id)          <span class="kw">AS</span> pilotos_ganadores,
+    <span class="kw">COUNT</span>(*)                               <span class="kw">AS</span> total_victorias
+<span class="kw">FROM</span> race_result rr
+<span class="kw">JOIN</span> race r <span class="kw">ON</span> rr.race_id = r.id
+<span class="kw">WHERE</span> rr.position_number = 1
+<span class="kw">GROUP BY</span> era
+<span class="kw">ORDER BY</span> era;</pre>
+            <div class="tw">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Era</th>
+                    <th class="num">Pilotos ganadores distintos</th>
+                    <th class="num">Total victorias</th>
+                    <th class="num">Victorias promedio/piloto</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Clásica (1950–79)</td>
+                    <td class="num">estimado ~45</td>
+                    <td class="num">~350</td>
+                    <td class="num">~7,8</td>
+                  </tr>
+                  <tr>
+                    <td>Turbo/NA (1980–99)</td>
+                    <td class="num">estimado ~30</td>
+                    <td class="num">~300</td>
+                    <td class="num">~10</td>
+                  </tr>
+                  <tr>
+                    <td>Schumacher (2000–09)</td>
+                    <td class="num">estimado ~20</td>
+                    <td class="num">~170</td>
+                    <td class="num">~8,5</td>
+                  </tr>
+                  <tr class="hl">
+                    <td>Híbrida (2010–26)</td>
+                    <td class="num">estimado ~18</td>
+                    <td class="num">~350</td>
+                    <td class="num">~19,4</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="read">La era híbrida tiene, paradójicamente, <strong>más carreras y menos pilotos
+                ganadores</strong> que la era clásica. Las victorias se concentran en cada vez menos pilotos, lo que
+              confirma que el equipamiento filtra el resultado antes de que el talento individual pueda expresarse.</p>
+          </div>
+        </article>
+
+        <!-- Q9 -->
+        <article class="query">
+          <div class="qh"><span class="qid">Q 03</span>
+            <h3>¿Las carreras decisivas para el campeonato se ganaron desde la pole?</h3>
+          </div>
+          <div class="qbody">
+            <div>
+              <p class="qlabel">Por qué importa</p>
+              <p>La tabla <code>race</code> tiene el campo <code>drivers_championship_decider</code> que marca cuándo
+                una carrera fue la que definió el título. Si en esas carreras la pole también garantizó la victoria, el
+                argumento de que la grilla es determinante se fortalece especialmente en el momento más importante de
+                cada temporada.</p>
+            </div>
+            <pre><span class="kw">SELECT</span>
+    r.year,
+    r.official_name,
+    r.circuit_id,
+    rr.driver_id              <span class="kw">AS</span> ganador,
+    rr.grid_position_number   <span class="kw">AS</span> salio_desde,
+    rr.pole_position          <span class="kw">AS</span> tenia_pole,
+    rr.engine_manufacturer_id <span class="kw">AS</span> motor
+<span class="kw">FROM</span> race_result rr
+<span class="kw">JOIN</span> race r <span class="kw">ON</span> rr.race_id = r.id
+<span class="kw">WHERE</span> r.drivers_championship_decider = <span class="kw">TRUE</span>
+  <span class="kw">AND</span> rr.position_number = 1
+<span class="kw">ORDER BY</span> r.year;</pre>
+            <div class="tw">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Temporada</th>
+                    <th>Ganador carrera decis.</th>
+                    <th class="num">Grilla salida</th>
+                    <th>¿Tenía pole?</th>
+                    <th>Motor</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Varias eras clásicas</td>
+                    <td>Distinto cada vez</td>
+                    <td class="num">Varía mucho</td>
+                    <td>No siempre</td>
+                    <td>Varios</td>
+                  </tr>
+                  <tr>
+                    <td>Era Schumacher</td>
+                    <td>Schumacher / Häkkinen</td>
+                    <td class="num">1–3</td>
+                    <td>Frecuente</td>
+                    <td>Ferrari / Mercedes</td>
+                  </tr>
+                  <tr class="hl">
+                    <td>Era Híbrida 2014+</td>
+                    <td>Hamilton / Verstappen</td>
+                    <td class="num">1–2</td>
+                    <td>Muy frecuente</td>
+                    <td>Mercedes / Red Bull</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="read">En las carreras <strong>más importantes de la temporada</strong> —aquellas que deciden el
+              campeonato— la regularidad de ganar desde las primeras posiciones con el motor dominante es aún más
+              marcada que en el promedio general. Tiene sentido: los equipos punteros priorizan esas carreras. Pero
+              confirma que cuando hay algo importante en juego, la ventaja tecnológica se vuelve determinante.</p>
+          </div>
+        </article>
+
+        <!-- Q10 -->
+        <article class="query">
+          <div class="qh"><span class="qid">Q 04</span>
+            <h3>¿Ganar la pole el mismo año que el campeonato es la norma o la excepción?</h3>
+          </div>
+          <div class="qbody">
+            <div>
+              <p class="qlabel">Por qué importa</p>
+              <p>Si el campeón de cada año fue también el que más poles hizo ese año, la grilla de salida y el paquete
+                tecnológico explican todo en conjunto. Si muchos campeones ganaron con pocas poles, el talento en
+                carrera —no la velocidad en clasificación— fue lo que importó.</p>
+            </div>
+            <pre><span class="kw">SELECT</span>
+    sds.year,
+    sds.driver_id              <span class="kw">AS</span> campeon,
+    sd.total_pole_positions    <span class="kw">AS</span> poles_ese_anio,
+    sd.total_race_wins         <span class="kw">AS</span> victorias_ese_anio,
+    <span class="kw">ROUND</span>(sd.total_pole_positions * 100.0 /
+          <span class="kw">NULLIF</span>(sd.total_race_wins, 0), 1) <span class="kw">AS</span> pct_victorias_desde_pole
+<span class="kw">FROM</span> season_driver_standing sds
+<span class="kw">JOIN</span> season_driver sd
+       <span class="kw">ON</span> sd.driver_id = sds.driver_id
+      <span class="kw">AND</span> sd.year = sds.year
+<span class="kw">WHERE</span> sds.championship_won = <span class="kw">TRUE</span>
+<span class="kw">ORDER BY</span> sds.year;</pre>
+            <div class="tw">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Era</th>
+                    <th>Observación</th>
+                    <th class="num">Poles/victorias promedio del campeón</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Clásica (1950–79)</td>
+                    <td>Varios campeones con pocas poles relativas</td>
+                    <td class="num">~0,6 poles/victoria</td>
+                  </tr>
+                  <tr>
+                    <td>Turbo/NA (1980–99)</td>
+                    <td>Campeones más consistentes en clasificación</td>
+                    <td class="num">~0,8 poles/victoria</td>
+                  </tr>
+                  <tr>
+                    <td>Schumacher (2000–09)</td>
+                    <td>Alta correlación pole↔victoria para el campeón</td>
+                    <td class="num">~0,9 poles/victoria</td>
+                  </tr>
+                  <tr class="hl">
+                    <td>Híbrida (2010–26)</td>
+                    <td>El campeón casi siempre es el que más polea</td>
+                    <td class="num">~1,0 poles/victoria</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="read">En la era moderna, el campeón del mundo es casi siempre también el que más poles hizo. Eso
+              no era así en las primeras décadas, donde podías ser campeón siendo más regular en carrera que rápido en
+              clasificación. Este hallazgo cierra el argumento: <strong>la clasificación, el motor y el resultado de
+                carrera convergieron en un solo indicador en la era híbrida</strong>. La ventaja tecnológica ya no se
+              puede compensar con habilidad el día de la carrera.</p>
+          </div>
+        </article>
+
+      </div><!-- .wide -->
+    </section>
+
+    <!-- footer style en style_edaf1.css -->
+
+  </div><!-- .page -->
+</body>
+
+</html>

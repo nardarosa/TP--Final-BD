@@ -1,0 +1,67 @@
+<USER_REQUEST>
+# Tercera entrega del trabajo práctico: Las eras de la Fórmula 1 — Análisis SQL completo
+
+## 1. Tu tarea
+
+Quiero que trabajes sobre mi proyecto de Base de Datos de Fórmula 1 y desarrolles una nueva versión HTML, completa, rigurosa y visualmente consistente con las dos entregas existentes.
+
+Los archivos de referencia son:
+
+- `TP-cuatrimestral-1er_entrega-Rosa_Kimel_Connon.html`
+- `TP-cuatrimestral-2da_entrega-Rosa_Kimel_Connon.html`
+
+Leé ambos archivos completos antes de empezar. No te bases únicamente en sus introducciones o en fragmentos del código.
+
+El trabajo utiliza F1DB sobre PostgreSQL 16 y está orientado a la Licenciatura en Ciencia de Datos.
+
+**No quiero solamente un HTML con consultas SQL. Quiero una investigación analítica bien construida, con preguntas relevantes, consultas justificadas, resultados reales, interpretaciones y una conclusión general que evalúe la hipótesis.**
+
+Creá un archivo nuevo llamado:
+
+`TP-cuatrimestral-3ra_entrega-Rosa_Kimel_Connon.html`
+
+No sobrescribas los archivos de las entregas anteriores. El nuevo HTML tiene que poder abrirse directamente en un navegador.
+
+## 2. Contexto que debés conservar
+
+El título del proyecto es «Las eras de la Fórmula 1».
+
+La hipótesis original es:
+
+«En la Fórmula 1 moderna (post-2010), la posición de largada y el fabricante de motor son factores significativamente más determinantes del resultado final que en las primeras eras del campeonato (1950–1980), evidenciando que la competitividad se concentra cada vez más en ventajas tecnológicas y estratégicas por sobre el desempeño individual del piloto en carrera».
+
+La pregunta principal es:
+
+¿En qué medida la posición de largada y el fabricante de motor predicen el éxito en carrera, y cómo varía ese poder predictivo entre las distintas eras de la Fórmula 1?
+
+La audiencia está compuesta por periodistas deportivos, creadores de contenido y analistas de datos especializados en automovilismo, que necesitan evidencia cua
+<truncated 23016 bytes>
+sibles líneas de investigación futura.
+
+Podés condensar el EDA original para evitar redundancias, pero no elimines información metodológica importante. Incorporá referencias claras a las dos entregas anteriores.
+
+## 12. Control de calidad antes de entregar
+
+Antes de dar por terminado el archivo:
+
+- Verificá que todas las consultas sean compatibles con PostgreSQL 16.
+- Ejecutá cada consulta cuando exista acceso a la base.
+- Revisá los denominadores, los `JOIN`, los registros nulos y los tamaños de muestra.
+- Comprobá que las tablas HTML reproduzcan los resultados reales.
+- Asegurate de que los gráficos correspondan a los mismos resultados.
+- Revisá que no haya cifras de ejemplo presentadas como resultados reales.
+- Confirmá que las interpretaciones coincidan con las cifras y no exageren lo que permiten concluir.
+- Comprobá que todos los enlaces internos funcionen y que el HTML abra correctamente en un navegador.
+- Verificá la coherencia entre la hipótesis, los objetivos, las preguntas, las consultas y la conclusión final.
+- Si encontrás errores en una consulta de las entregas anteriores, corregilos en la nueva entrega y explicá brevemente el cambio cuando sea metodológicamente relevante.
+
+No te limites a proponer un plan ni a devolverme fragmentos de código. Trabajá sobre el proyecto, generá el HTML completo y guardalo con el nombre solicitado.
+
+Al terminar, indicá qué archivo creaste, qué consultas pudiste ejecutar realmente, cuáles quedaron pendientes por falta de acceso a datos y cuáles fueron las correcciones metodológicas más importantes.
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-10-18T16:03:43-03:00.
+</ADDITIONAL_METADATA>
+<USER_SETTINGS_CHANGE>
+The user changed setting `Model Selection` from Claude Sonnet 4.6 (Thinking) to GPT-OSS 120B (Medium). No need to comment on this change if the user doesn't ask about it. If reporting what model you are, please use a human readable name instead of the exact string.
+</USER_SETTINGS_CHANGE>
